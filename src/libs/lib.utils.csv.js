@@ -14,6 +14,40 @@
 
 
 /**
+ * Write the contents of each CSV file to a new sheet in the
+ * active sreadsheet. The name of each new sheet will be the
+ * name of the imported file.
+ *
+ * @param {string} fileId The ID number of the file to import.
+ * @return {string} The name of the newly created sheet.
+ */
+function importCsvFile(fileId) {
+  // Get the file contents and convert to an array of arrays.
+  var file = DriveApp.getFileById(fileId);
+  var fileContents = file.getBlob().getDataAsString();
+  var csvData = CSVToArray(fileContents);
+  
+  // Create the new sheet with same name as file name.
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.insertSheet(file.getName());
+
+  // Write the CSV file, row by row, to the new sheet.
+  for (var j = 0; j < csvData.length; j++) {
+    // Fix for first row of data, which has an empty cell.
+    if (j == 0) {
+      csvData[j].unshift("");
+    }
+
+    // Write the file to the new sheet.
+    var range = sheet.getRange(j+1, 1, 1, csvData[j].length);
+    range.setValues([csvData[j]]);
+  }
+
+  return sheet.getSheetName();
+}
+
+
+/**
  * Parse a delimited string into an array of arrays. The default delimiter is
  * the comma, but this can be overriden in the second argument.
  *
