@@ -14,6 +14,38 @@
 
 
 /**
+ * Used to open a dialog window using an HTML template with the given
+ * dimensions.
+ * 
+ * @param {string} source Name of the HTML template file.
+ * @param {string} title Title to display on dialog window.
+ * @param {integer} width Width of dialog window.
+ * @param {integer} height Height of dialog window.
+ */
+function showDialog(source, title, width, height) {
+  var ui = HtmlService.createTemplateFromFile(source)
+      .evaluate()
+      .setWidth(width)
+      .setHeight(height);
+  SpreadsheetApp.getUi().showModalDialog(ui, title);
+}
+
+
+/**
+ * Used to open a sidebar using an HTML template.
+ * 
+ * @param {string} source Name of the HTML template file.
+ * @param {string} title Title to display on sidebar.
+ */
+function showSidebar(source, title) {
+  var ui = HtmlService.createTemplateFromFile(source)
+      .evaluate()
+      .setTitle(title);
+  SpreadsheetApp.getUi().showSidebar(ui);
+}
+
+
+/**
  *  Used to insert any HTML file in the project into an outer HTML file.
  *  Called from within the outer HTML file.
  *  @param {String} filename Name of the file in the project.
