@@ -50,6 +50,12 @@ var paths = {
     bases.src + 'tests/lib.testing.js',
     bases.src + 'tests/*.server.main.js',
     bases.src + 'tests/*.js'
+  ],
+
+  server: [
+    bases.src + 'server/*.server.addon.js',
+    bases.src + 'server/*.main.js',
+    bases.src + 'server/*.js'
   ]
 };
 
@@ -90,7 +96,7 @@ gulp.task('compile-lib', ['clean-build'], function() {
 
 // Concat all .js files in the server directory
 gulp.task('compile-server', ['compile-lib'], function() {
-  return gulp.src(bases.src + 'server/*.js')
+  return gulp.src(paths.server)
       .pipe(concat('server.js'))
       .pipe(gulp.dest(bases.dist));
 });
