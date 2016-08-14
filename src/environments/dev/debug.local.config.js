@@ -26,7 +26,7 @@
  */
  function provideEnvironmentConfiguration_(configuration) {
   // Change ID below to a Spreadsheet ID you can read
-  configuration.sheets.debugSpreadsheetId =
+  configuration.debugSpreadsheetId =
       '1m5ALVdDEsjWh1-51uo03OUxWoD0JATfwEqV5ZMw2Tz4';
   configuration.debug = true;
   return configuration;
