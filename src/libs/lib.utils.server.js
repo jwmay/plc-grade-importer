@@ -29,7 +29,7 @@ function arraysEqual(array1, array2, sort) {
   var b = array2;
 
   if (a === b) return true;
-  if (a == null || b == null) return false;
+  if (a === null || b === null) return false;
   if (a.length != b.length) return false;
 
   // If sort set to true, then the arrays are sorted

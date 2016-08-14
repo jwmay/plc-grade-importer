@@ -71,7 +71,7 @@ BaseSpreadsheet.prototype.hasSheet = function(name) {
   var index = sheetNames.indexOf(name);
   var found = index > -1 ? true : false;
   return found;
-}
+};
 
 
 /**
