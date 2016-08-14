@@ -14,6 +14,41 @@
 
 
 /**
+ * Compares two arrays to determine if they are equal. If sort is set to true,
+ * the arrays are sorted before comparison. The default sort is false, so the
+ * order of the arrays is taken into account during the comparison.
+ * 
+ * @param {array} array1 The first array to compare.
+ * @param {array} array2 The second array to compare.
+ * @param {boolean=} sort True if the arrays are to be sorted.
+ *    Default is false, the array order does matter.
+ * @returns 
+ */
+function arraysEqual(array1, array2, sort) {
+  var a = array1;
+  var b = array2;
+
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length != b.length) return false;
+
+  // If sort set to true, then the arrays are sorted
+  // and compared, otherwise, the arrays will be compared
+  // taking into account the order of the elements.
+  var doSort = sort === undefined ? false : sort;
+  if (doSort) {
+    a.sort();
+    b.sort();
+  }
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
+
+/**
  * Logs an Apps Script exception, including the call stack
  * @private
  * @param {Object} e Apps Script runtime error object
