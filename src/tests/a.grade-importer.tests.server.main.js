@@ -1,4 +1,4 @@
-// Copyright 2015 Google Inc. All Rights Reserved.
+// Copyright 2016 Joseph W. May. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,9 +13,15 @@
 // limitations under the License.
 
 
+/**
+ * Run all unit tests. 
+ */
 function runAllTests() {
-  var masteryTrackerSheetTests = new MasteryTrackerSheetTests();
-  masteryTrackerSheetTests.run();
+  var baseSpreadsheetTests = new BaseSpreadsheetTests();
+  baseSpreadsheetTests.run();
+
+  var masteryTrackerTests = new MasteryTrackerTests();
+  masteryTrackerTests.run();
 }
 
 
@@ -53,20 +59,4 @@ Tests.prototype.run = function() {
   Logger.log(testCount + ' tests completed in this run.');
   Logger.log(failCount + ' tests failed:\n' + failNames.join('\n'));
   Logger.log('');
-};
-
-
-var MasteryTrackerSheetTests = function() {
-  Tests.call(this);
-};
-inherit_(MasteryTrackerSheetTests, Tests);
-
-
-/**
- * Test to confirm that the test spreadsheet has 5 sheets.
- */
-MasteryTrackerSheetTests.prototype.testSheetName = function() {
-  var dataSheet = new MasteryDataSheet().getSheet();
-  var testActualName = dataSheet.getName();
-  assertEquals_('Mastery Data', testActualName);
 };
