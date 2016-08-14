@@ -109,31 +109,3 @@ function assertTypeOf_(value, type, opt_message) {
     throw new Error(message);
   }
 }
-
-
-/**
- * Configures a child class to inherit from a parent class.
- * 
- * @private
- * @param {function(...)} childClass The child class.
- * @param {function(...)} parentClass The parent class.
- */
-function inherit_(childClass, parentClass) {
-  /**
-   * Empty wrapper class.
-   * @constructor
-   */
-  var TempClass = function() {};
-  TempClass.prototype = parentClass.prototype;
-  childClass.prototype = new TempClass();
-  childClass.prototype.super_ = parentClass.prototype;
-  childClass.prototype.constructor = childClass;
-}
-
-function unique_(prefix) {
-  return (prefix ? prefix : '') + (new Date()).getTime();
-}
-
-function random_() {
-  return Math.floor(Math.random() * 10);
-}

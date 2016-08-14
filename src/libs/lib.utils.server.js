@@ -49,6 +49,26 @@ function arraysEqual(array1, array2, sort) {
 
 
 /**
+ * Configures a child class to inherit from a parent class.
+ * 
+ * @private
+ * @param {function(...)} childClass The child class.
+ * @param {function(...)} parentClass The parent class.
+ */
+function inherit_(childClass, parentClass) {
+  /**
+   * Empty wrapper class.
+   * @constructor
+   */
+  var TempClass = function() {};
+  TempClass.prototype = parentClass.prototype;
+  childClass.prototype = new TempClass();
+  childClass.prototype.super_ = parentClass.prototype;
+  childClass.prototype.constructor = childClass;
+}
+
+
+/**
  * Logs an Apps Script exception, including the call stack
  * @private
  * @param {Object} e Apps Script runtime error object
