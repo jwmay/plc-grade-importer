@@ -1,7 +1,7 @@
 {
   "name": "plc-grade-importer",
   "version": "1.0.0",
-  "description": "Google Sheets addon for importing Infinite Campus gradebook export files",
+  "description": "Google Sheets add-on for importing Infinite Campus gradebook csv files",
   "main": "gulpfile.js",
   "scripts": {},
   "repository": {
@@ -14,6 +14,7 @@
     "infinite-campus",
     "plc",
     "data-tracker",
+    "plc-data-tracker",
     "gradebook"
   ],
   "author": "Joseph W. May",
@@ -25,8 +26,10 @@
   "devDependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
     "gulp-debug": "^2.1.2",
     "gulp-jshint": "^1.12.0",
+    "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-shell": "^0.5.1",
     "jshint-stylish": "^2.0.1",
