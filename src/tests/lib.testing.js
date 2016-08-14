@@ -1,4 +1,4 @@
-// Copyright 2015 Google Inc. All Rights Reserved.
+// Copyright 2016 Joseph W. May. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,10 +15,11 @@
 
 /**
  * Asserts that two values are equal. Throws an error if they are not.
+ * 
  * @private
  * @param {*} expected The expected value.
  * @param {*} actual The actual value.
- * @param {string=} opt_message The message to include in the error
+ * @param {string=} opt_message The message to include in the error.
  */
 function assertEquals_(expected, actual, opt_message) {
   if (expected != actual) {
@@ -30,10 +31,28 @@ function assertEquals_(expected, actual, opt_message) {
 
 
 /**
+ * Asserts that two arrays are equal. Throws an error if they are not.
+ * 
+ * @private
+ * @param {array} expected The expected array.
+ * @param {array} actual The actual array.
+ * @param {boolean=} sort True if the arrays should be sorted.
+ * @param {string=} opt_message The message to include in the error.
+ */
+function assertEqualsArray_(expected, actual, sort, opt_message) {
+  if (!arraysEqual(expected, actual, sort)) {
+    var message = opt_message || 'The arrays are not equal.';
+    throw new Error(message);
+  }
+}
+
+
+/**
  * Asserts that the condition is true. Throws an error if it is not.
+ * 
  * @private
  * @param {boolean} condition The condition.
- * @param {string=} opt_message The message to include in the error
+ * @param {string=} opt_message The message to include in the error.
  */
 function assertTrue_(condition, opt_message) {
   if (!condition) {
@@ -45,9 +64,10 @@ function assertTrue_(condition, opt_message) {
 
 /**
  * Asserts that the value isn't null. Throws an error if it is.
+ * 
  * @private
  * @param {*} value The value to test.
- * @param {string=} opt_message The message to include in the error
+ * @param {string=} opt_message The message to include in the error.
  */
 function assertNotNull_(value, opt_message) {
   if (value === null) {
@@ -59,10 +79,11 @@ function assertNotNull_(value, opt_message) {
 
 /**
  * Asserts that the value isn't null or the empty string.
- * @private
  * Throws an error if it is.
+ * 
+ * @private
  * @param {*} value The value to test.
- * @param {string=} opt_message The message to include in the error
+ * @param {string=} opt_message The message to include in the error.
  */
 function assertNotNullOrEmpty_(value, opt_message) {
   assertNotNull(value, opt_message);
@@ -75,10 +96,11 @@ function assertNotNullOrEmpty_(value, opt_message) {
 
 /**
  * Asserts that the value is of a certain type. Throws an error if it is not.
+ * 
  * @private
  * @param {*} value The value to test.
  * @param {string} type The expected type.
- * @param {string=} opt_message The message to include in the error
+ * @param {string=} opt_message The message to include in the error.
  */
 function assertTypeOf_(value, type, opt_message) {
   if (typeof value != type) {
@@ -91,6 +113,7 @@ function assertTypeOf_(value, type, opt_message) {
 
 /**
  * Configures a child class to inherit from a parent class.
+ * 
  * @private
  * @param {function(...)} childClass The child class.
  * @param {function(...)} parentClass The parent class.
