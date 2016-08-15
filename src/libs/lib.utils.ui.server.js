@@ -17,11 +17,11 @@
  * Open a dialog window using an HTML template with the given dimensions.
  * 
  * @param {string} source Name of the HTML template file.
- * @param {string} title Title to display on dialog window.
  * @param {integer} width Width of dialog window.
  * @param {integer} height Height of dialog window.
+ * @param {string} title Title to display on dialog window.
  */
-function showDialog(source, title, width, height) {
+function showDialog(source, width, height, title) {
   var ui = HtmlService.createTemplateFromFile(source)
       .evaluate()
       .setWidth(width)
@@ -55,4 +55,31 @@ function showSidebar(source, title) {
 function include(filename) {
   return HtmlService.createHtmlOutputFromFile(filename)
       .getContent();
+}
+
+
+/**
+ * Returns an HTML-formatted string of checkboxes for the given value-item
+ * objects. The input must be an array of objects each with a value and label
+ * property. 
+ * 
+ * @param {string} name The name for the checkbox group.
+ * @param {array} items An array of objects.
+ * @param {boolean} allChecked If true, all checkboxes will be initially checked
+ *     on display.
+ * @returns An HTML-formatted string.
+ */
+function showCheckboxes(name, items, allChecked) {
+  var checkboxes = [];
+  var checked = allChecked === true ? ' checked' : '';
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    checkboxes.push(
+      Utilities.formatString(
+        '<div><input type="checkbox" name="%s" value="%s"%s><label>%s</label></div>',
+        name, item.value, checked, item.label
+      )
+    );
+  }
+  return checkboxes.join('');
 }
