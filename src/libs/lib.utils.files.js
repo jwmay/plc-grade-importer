@@ -23,10 +23,11 @@
  * @returns
  */
 function validateFiles(files, fileType) {
-  // Storage for valid and invalid files.
+  // Storage for valid, invalid, and renamed files.
   var validatedFiles = {
     valid: [],
-    invalid: []
+    invalid: [],
+    renamed: []
   };
   
   // Filter out files with a valid filetype.
