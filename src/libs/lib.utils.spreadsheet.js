@@ -131,7 +131,7 @@ BaseSpreadsheet.prototype.getUniqueSheetName = function(baseName) {
   var sheetName = baseName;
   var i = 2;
   while (this.getSpreadsheet().getSheetByName(sheetName) !== null) {
-    sheetName = baseName + ' ' + i++;
+    sheetName = baseName + ' (' + i++ + ')';
   }
   return sheetName;
 };
