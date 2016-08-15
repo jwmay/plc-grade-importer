@@ -44,11 +44,6 @@ function loadSelectedFiles(files) {
   // Filter the incoming files to select only csv files.
   var validatedFiles = validateFiles(files, 'text/csv');
 
-  // Storage for the imported sheet ids. The sheet ids will be persisted in
-  // the user properties for later use in removing the imported sheets.
-  var userProperties = PropertiesService.getUserProperties();
-  var importedSheets = [];
-
   for (var i = 0; i < validatedFiles.valid.length; i++) {
     var file = validatedFiles.valid[i];
     
@@ -60,11 +55,7 @@ function loadSelectedFiles(files) {
       validatedFiles.renamed.push(file);
     }
     var sheetId = importCsvFile(file);
-    importedSheets.push(sheetId);
   }
-
-  // Persist the imported sheet ids in user properties.
-  userProperties.setProperty('IMPORTED_SHEETS', importedSheets.toString());
 
   // Generate the diplay of imported, renamed, and invalid files.
   importedFiles = displayPickerResults(validatedFiles);
