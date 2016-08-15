@@ -75,17 +75,6 @@ BaseSpreadsheet.prototype.hasSheet = function(name) {
 
 
 /**
- * Shows a toast message in the current active spreadsheet.
- * 
- * @param {string} msg The message to display.
- * @param {string} title The title of the toast.
- */
-BaseSpreadsheet.prototype.showToast = function(msg, title) {
-  this.getSpreadsheet().toast(msg, title, 4);
-};
-
-
-/**
  * Returns true if the current user is the owner of the current spreadsheet.
  * 
  * @return {boolean} True if the current user is the owner of the Drive file.
@@ -114,6 +103,22 @@ BaseSpreadsheet.prototype.getSheetById = function(sheetId) {
     }
   }
   return null;
+};
+
+
+/**
+ * Returns an array of Sheet objects with the sheets defined in the
+ * configuration file removed from the array.
+ * 
+ * @return {array} An array of Sheet objects.
+ */
+BaseSpreadsheet.prototype.getUserCreatedSheets = function() {
+  var allSheets = this.getSpreadsheet().getSheets();
+  var configSheetNames = Configuration.getSheetNames();
+  var userSheets = allSheets.filter(function(sheet) {
+    return configSheetNames.indexOf(sheet.getName()) < 0;
+  });
+  return userSheets;
 };
 
 
