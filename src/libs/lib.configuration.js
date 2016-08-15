@@ -1,4 +1,4 @@
-// Copyright 2015 Google Inc. All Rights Reserved.
+// Copyright 2016 Joseph W. May. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,12 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
 var Configuration = {
   /**
   * Returns the default global settings object. If a developer has added
   * function 'provideEnvironmentConfiguration_(globals)' to their project, that
   * will be added to the global namespace, and will be visible here to allow
   * the dev to set specific values for their run.
+  * 
   * @return {myproj.json.Configuration}
   */
   getCurrent: function() {
@@ -31,5 +33,21 @@ var Configuration = {
     } else {
       return defaultConfiguration;
     }
+  },
+
+  /**
+   * Returns an array of strings containing the sheet names defined in the
+   * configuration object.
+   * 
+   * @return {array} An array of strings.
+   */
+  getSheetNames: function() {
+    var config = this.getCurrent();
+    var configSheets = config.sheets;
+    var configSheetNames = [];
+    for (var sheet in configSheets) {
+      configSheetNames.push(configSheets[sheet].name);
+    }
+    return configSheetNames;
   }
 };
