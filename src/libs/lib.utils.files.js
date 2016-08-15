@@ -20,7 +20,7 @@
  * 
  * @param {array} files An array of file objects returned from Google Picker.
  * @param {string} fileType The MIME-type for valid files.
- * @returns
+ * @returns An object of valid and invalid file arrays.
  */
 function validateFiles(files, fileType) {
   // Storage for valid, invalid, and renamed files.
