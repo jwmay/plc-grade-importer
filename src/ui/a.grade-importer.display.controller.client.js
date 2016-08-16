@@ -42,3 +42,76 @@ function closeButton() {
   button = '<input type="button" value="Close" class="btn" onclick="google.script.host.close();">';
   return button;
 }
+
+
+/**
+ * Returns the value of a field with the specified selector.
+ * 
+ * @private
+ * @param {string} selector The input selector.
+ * @returns A string representing the user's response.
+ */
+function getValue_(selector) {
+  var inputValue = $(selector).val();
+  return inputValue;
+}
+
+
+/**
+ * Returns the values of all fields with the specified selector.
+ * 
+ * @private
+ * @param {string} selector The input selector.
+ * @returns An array of strings representing the user's response for each
+ *     field with the given selector.
+ */
+function getValues_(selector) {
+  var inputValues = [];
+  $(selector).each(function() {
+    inputValues.push($(this).val());
+  });
+  return inputValues;
+}
+
+
+/**
+ * Returns an array of values of checked inputs.
+ *
+ * @private
+ * @param {string} name The name attribute of the checkboxes.
+ * @return {array} An array of values of checked inputs.
+ */
+function getCheckedBoxes_(name) {
+  var selector = 'input[name="' + name + '"]:checked';
+  var checked = [];
+  $(selector).each(function() {
+    checked.push($(this).val());
+  });
+  return checked;
+}
+
+
+/**
+ * Returns an array of booleans representing the status of each checkbox
+ * with the given name.
+ * 
+ * @param {string} name The name attribute of the checkboxes.
+ * @returns An array of booleans.
+ */
+function getCheckboxStatus_(name) {
+  var selector = 'input[name="' + name + '"]';
+  var status = [];
+  $(selector).each(function() {
+    status.push($(this).prop('checked'));
+  });
+  return status;
+}
+
+
+/**
+ * Update the user display to show loading message.
+ */
+function showLoading_(message) {
+  var msg = message || 'Working...';
+  updateDisplay('<em>' + msg + '</em>');
+}
