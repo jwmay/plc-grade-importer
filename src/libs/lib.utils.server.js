@@ -20,9 +20,33 @@
  * @returns An array with no empty, null, or undefined elements.
  */
 function removeEmpty(array) {
-  cleanedArray = array.filter(function(n) {
+  var cleanedArray = array.filter(function(n) {
       return (n !== undefined && n !== null && n !== '');
   });
+  return cleanedArray;
+}
+
+
+/**
+ * Returns the given 2D-array with all empty, null, and undefined elements
+ * removed. Only the first array is used to remove empty elements. Empty
+ * elements in the second array will be associated with the non-empty elements
+ * of the first array.
+ * 
+ * @param {array} array The array to remove empty elements from.
+ * @returns An array with no empty, null, or undefined elements.
+ */
+function removeEmpty2D(array) {
+  var cleanedArray = [[],[]];
+  var firstArray = array[0];
+  var secondArray = array[1];
+  for (var i = 0; i < firstArray.length; i++) {
+    if (firstArray[i] !== '' && firstArray[i] !== null &&
+            firstArray[i] !== undefined) {
+      cleanedArray[0].push(firstArray[i]);
+      cleanedArray[1].push(secondArray[i]);
+    }
+  }
   return cleanedArray;
 }
 
