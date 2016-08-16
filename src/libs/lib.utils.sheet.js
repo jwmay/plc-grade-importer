@@ -36,10 +36,25 @@ var BaseSheet = function(sheetId) {
  * @return {Range} A Range instance representing the row.
  */
 BaseSheet.prototype.getRow = function(rowNum, startCol) {
+  var row = this.getRows(rowNum, 1, startCol);
+  return row;
+};
+
+
+/**
+ * Returns a Range instance representing the given number of row in the sheet.
+ * An optional start postion for the column can be providied.
+ * 
+ * @param {number} rowNum The row to retrieve.
+ * @param {number} numRows The number of rows to retrieve.
+ * @param {number=} startCol An optional starting column postion.
+ * @return {Range} A Range instance representing the row.
+ */
+BaseSheet.prototype.getRows = function(rowNum, numRows, startCol) {
   var colStart = startCol === undefined ? 1 : startCol;
   var maxCols = this.sheet.getMaxColumns();
   var colEnd = maxCols - colStart + 1;
-  var row = this.sheet.getRange(rowNum, colStart, 1, colEnd);
+  var row = this.sheet.getRange(rowNum, colStart, numRows, colEnd);
   return row;
 };
 
@@ -53,9 +68,24 @@ BaseSheet.prototype.getRow = function(rowNum, startCol) {
  * @return {Range} A Range instance representing the column.
  */
 BaseSheet.prototype.getColumn = function(colNum, startRow) {
+  var col = this.getColumns(colNum, 1, startRow);
+  return col;
+};
+
+
+/**
+ * Returns a Range instance representing the given number of columns in the
+ * sheet. An optional start postion for the row can be providied.
+ * 
+ * @param {number} colNum The column to retrieve.
+ * @param {number} numCols The number of columns to retrieve.
+ * @param {number=} startRow An optional starting row postion.
+ * @return {Range} A Range instance representing the column.
+ */
+BaseSheet.prototype.getColumns = function(colNum, numCols, startRow) {
   var rowStart = startRow === undefined ? 1 : startRow;
   var maxRows = this.sheet.getMaxRows();
   var rowEnd = maxRows - rowStart + 1;
-  var col = this.sheet.getRange(rowStart, colNum, rowEnd, 1);
+  var col = this.sheet.getRange(rowStart, colNum, rowEnd, numCols);
   return col;
 };
