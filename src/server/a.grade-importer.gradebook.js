@@ -73,7 +73,7 @@ Gradebook.prototype.getAssignmentScores = function(assignmentNumber) {
  */
 Gradebook.prototype.getClassPeriod = function() {
   var sheetName = this.sheetName;
-  var periodRegex = /[period]*(\d)+\.csv/g;
+  var periodRegex = new RegExp(/[period]*(\d)+\.csv/);
   var periodMatch = periodRegex.exec(sheetName);
   var period = periodMatch !== null ? periodMatch[1] : null;
   return period;
