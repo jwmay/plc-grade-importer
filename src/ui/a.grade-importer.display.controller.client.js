@@ -39,9 +39,6 @@ function showError(message) {
  * Returns and HTML-formatted string to display the 'Close' button.
  */
 function closeButton() {
-  var button = [];
-  button.push('<div class="block">');
-  button.push('<input type="button" value="Close" class="btn" onclick="google.script.host.close();">');
-  button.push('</div>');
-  return button.join('');
+  button = '<input type="button" value="Close" class="btn" onclick="google.script.host.close();">';
+  return button;
 }
