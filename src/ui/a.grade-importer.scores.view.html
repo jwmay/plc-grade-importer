@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons.css">
+  <style>
+    <?!= include('a.grade-importer.styles.css'); ?>
+  </style>
+</head>
+<body>
+  <div>
+    <p id='result'><em>Loading...</em></p>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script>
+    <?!= include('a.grade-importer.display.controller.client.js'); ?>
+    <?!= include('a.grade-importer.scores.controller.client.js'); ?>
+  </script>
+</body>
+</html>
