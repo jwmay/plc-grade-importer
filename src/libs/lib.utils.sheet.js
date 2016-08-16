@@ -100,3 +100,12 @@ BaseSheet.prototype.getColumns = function(colNum, numCols, startRow, numRows) {
   var col = this.sheet.getRange(rowStart, colNum, numRows, numCols);
   return col;
 };
+
+
+/**
+ * Deletes the current sheet.
+ */
+BaseSheet.prototype.remove = function() {
+  var ss = this.spreadsheet.getSpreadsheet();
+  ss.deleteSheet(this.sheet);
+};
