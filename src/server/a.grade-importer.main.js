@@ -56,3 +56,44 @@ function getDefaultConfiguration_() {
     }
   };
 }
+
+
+/**
+ * Imports the given assignments into the respective learning goal columns of 
+ * the mastery data sheet. Takes into account whether an assignment is a retake.
+ * 
+ * @param {number} period The class period.
+ * @param {array} assignments Array of assignment numbers to import.
+ * @param {array} lgNums Array of learning goal numbers as targets for
+ *     the import.
+ * @param {array} lgNames Array of learning goal names for the import.
+ * @param {array} retakes Array of booleans indicating which learning goals
+ *     are to be imported as retakes.
+ * @returns A string.
+ */
+function importMasteryData(period, assignments, lgNums, lgNames, retakes) {
+  // Get the current gradebook.
+  var storage = new PropertyStore();
+  var sheetId = storage.getProperty('currentSheetId');
+  var gradebook = new Gradebook(sheetId);
+  var masteryData = new MasteryData();
+
+  // Verify that the imported data arrays are equal in length.
+  if ((assignments.length !== lgNums.length) &&
+          (lgNums.length !== lgNames.length) &&
+          (lgNames.length !== retakes.length)) {
+    throw new Error('There was a problem importing the data. ' +
+            'Please try again later.');
+  }
+
+  for (var i = 0; i < lgNums.length; i++) {
+    // Set the learning goal name if given.
+    masteryData.setLearningGoalName(lgNums[i], lgNames[i]);
+
+    // Set the mastery scores.
+    var scores = gradebook.getAssignmentScores(assignments[i]);
+    masteryData.setLearningGoalScores(period, lgNums[i], scores, retakes[i]);
+  }
+
+  return 'Import complete';
+}
