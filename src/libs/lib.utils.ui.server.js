@@ -44,6 +44,27 @@ function showSidebar(source, title) {
 }
 
 
+
+/**
+ * Display a prompt.
+ * 
+ * @param {string} message The message to display.
+ * @returns A string representing the user's response, or null if
+ *     no response is given.
+ */
+function showPrompt(message) {
+  var ui = SpreadsheetApp.getUi();
+  var response = ui.prompt(message);
+
+  // Process the user's response.
+  if (response.getSelectedButton() == ui.Button.OK) {
+    return response.getResponseText();
+  } else {
+    return null;
+  }
+}
+
+
 /**
  * Insert any HTML file in the project into an outer HTML file.
  * Called from within the outer HTML file.
@@ -76,10 +97,19 @@ function showCheckboxes(name, items, allChecked) {
     var item = items[i];
     checkboxes.push(
       Utilities.formatString(
-        '<div><input type="checkbox" name="%s" value="%s"%s><label>%s</label></div>',
+        '<div><label><input type="checkbox" name="%s" value="%s"%s>%s</label></div>',
         name, item.value, checked, item.label
       )
     );
   }
   return checkboxes.join('');
+}
+
+
+/**
+ * Returns and HTML-formatted string to display the 'Close' button.
+ */
+function showCloseButton() {
+  button = '<input type="button" value="Close" class="btn" onclick="google.script.host.close();">';
+  return button;
 }
