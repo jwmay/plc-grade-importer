@@ -22,6 +22,9 @@ function runAllTests() {
 
   var masteryTrackerTests = new MasteryTrackerTests();
   masteryTrackerTests.run();
+
+  var masteryDataTests = new MasteryDataTests();
+  masteryDataTests.run();
 }
 
 
