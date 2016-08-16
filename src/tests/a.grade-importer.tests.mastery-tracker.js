@@ -75,7 +75,7 @@ MasteryTrackerTests.prototype.testGetSheetById = function() {
  */
 MasteryTrackerTests.prototype.testGetUniqueSheetName = function() {
   var baseName = 'Class Schedule';
-  var actualSheetName = 'Class Schedule 2';
+  var actualSheetName = 'Class Schedule (2)';
   var testSpreadsheet = new MasteryTracker();
   var testSheetName = testSpreadsheet.getUniqueSheetName(baseName);
   assertEquals_(actualSheetName, testSheetName);
