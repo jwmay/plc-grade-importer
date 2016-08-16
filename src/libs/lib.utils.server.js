@@ -14,6 +14,20 @@
 
 
 /**
+ * Returns the given array with all empty, null, and undefined elements removed.
+ * 
+ * @param {array} array The array to remove empty elements from.
+ * @returns An array with no empty, null, or undefined elements.
+ */
+function removeEmpty(array) {
+  cleanedArray = array.filter(function(n) {
+      return (n !== undefined && n !== null && n !== '');
+  });
+  return cleanedArray;
+}
+
+
+/**
  * Compares two arrays to determine if they are equal. If sort is set to true,
  * the arrays are sorted before comparison. The default sort is false, so the
  * order of the arrays is taken into account during the comparison.
