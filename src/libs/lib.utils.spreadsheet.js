@@ -34,7 +34,8 @@ var BaseSpreadsheet = function(config) {
  * @return {object} A Spreadsheet instance.
  */
 BaseSpreadsheet.prototype.getSpreadsheet = function() {
-  var loadLocal = ((typeof this.config.debugSpreadsheetId !== 'undefined') &&
+  var loadLocal = ((this.config.debugSpreadsheetId !== null) &&
+      (this.config.debugSpreadsheetId !== undefined) &&
       (this.config.debugSpreadsheetId !== ''));
   if (loadLocal) {
     return SpreadsheetApp.openById(this.config.debugSpreadsheetId);
