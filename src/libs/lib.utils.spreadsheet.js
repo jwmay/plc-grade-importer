@@ -61,6 +61,20 @@ BaseSpreadsheet.prototype.getSheetNames = function() {
 
 
 /**
+ * Returns the sheet id of the sheet with the given name.
+ * 
+ * @param {string} name The name of the sheet whose id will be returned.
+ * @return {integer} The integer representing the sheet id of the given sheet. 
+ */
+BaseSpreadsheet.prototype.getSheetId = function(name) {
+  var spreadsheet = this.getSpreadsheet();
+  var sheet = spreadsheet.getSheetByName(name);
+  var sheetId = sheet.getSheetId();
+  return sheetId;
+};
+
+
+/**
  * Returns true if the given sheet name is found in the spreadsheet.
  * 
  * @param {string} name The sheet name.
@@ -93,7 +107,7 @@ BaseSpreadsheet.prototype.currentUserIsOwner = function() {
  * @return {object} A Sheet instance, or null if not found.
  */
 BaseSpreadsheet.prototype.getSheetById = function(sheetId) {
-  if ((typeof sheetId === 'undefined') || (!sheetId)) {
+  if (sheetId === undefined || sheetId === null) {
     return null;
   }
   var sheets = this.getSpreadsheet().getSheets();
