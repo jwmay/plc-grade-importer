@@ -29,7 +29,7 @@ $(function() {
  */
 function selectGradebooks_onclick() {
   var gradebooks = getCheckedBoxes_('gradebooks');
-  showLoading_();
+  showLoading();
   google.script.run
     .withSuccessHandler(updateDisplay)
     .displayAssignments(gradebooks);
@@ -41,7 +41,7 @@ function selectGradebooks_onclick() {
  */
 function selectAssignments_onclick() {
   var assignments = getCheckedBoxes_('assignments');
-  showLoading_();
+  showLoading();
   google.script.run
     .withSuccessHandler(updateDisplay)
     .displayMasteryData(assignments);
@@ -57,7 +57,7 @@ function importMasteryData_onclick() {
   var lgNums = getValues_('select[name="learningGoals"]');
   var lgNames = getValues_('input[name="lgName"]');
   var retakes = getCheckboxStatus_('retake');
-  showLoading_('Importing scores. Do not close this window.');
+  showLoading('Importing scores. Do not close this window.');
   google.script.run
     .withSuccessHandler(updateDisplay)
     .importMasteryData(assignments, lgNums, lgNames, retakes);

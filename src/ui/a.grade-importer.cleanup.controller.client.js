@@ -29,7 +29,7 @@ $(function() {
  */
 function selectGradebooksForRemoval_onclick() {
   var gradebooks = getCheckedBoxes_('gradebooks');
-  showLoading_();
+  showLoading();
   google.script.run
     .withSuccessHandler(updateDisplay)
     .removeGradebooks(gradebooks);

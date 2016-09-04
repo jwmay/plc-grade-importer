@@ -24,6 +24,15 @@ function updateDisplay(display) {
 
 
 /**
+ * Update the user display to show loading message.
+ */
+function showLoading(message) {
+  var msg = message || 'Working...';
+  updateDisplay('<em>' + msg + '</em>');
+}
+
+
+/**
  * Displays an error message within the #result element.
  *
  * @param {string} message The error message to display.
@@ -105,13 +114,4 @@ function getCheckboxStatus_(name) {
     status.push($(this).prop('checked'));
   });
   return status;
-}
-
-
-/**
- * Update the user display to show loading message.
- */
-function showLoading_(message) {
-  var msg = message || 'Working...';
-  updateDisplay('<em>' + msg + '</em>');
 }
