@@ -48,11 +48,9 @@ function getDefaultConfiguration_() {
         cols: 8
       }
     },
-    
-    studentNumberRange: {
-      row: 9,
-      col: 1,
-      numRows: 60
+
+    properties: {
+      maxNumScores: 60
     }
   };
 }
