@@ -178,6 +178,7 @@ function importMasteryData(assignments, lgNums, lgNames, retakes) {
   var sheetIds = storage.getProperty('sheetIds', true);
   var masteryData = new MasteryData();
 
+  // Loop over the selected spreadsheets containing the imported gradebook data.
   for (var i = 0; i < sheetIds.length; i++) {
     var sheetId = sheetIds[i];
     var gradebook = new Gradebook(sheetId);
@@ -194,19 +195,28 @@ function importMasteryData(assignments, lgNums, lgNames, retakes) {
               'Please try again later.');
     }
 
+    // Loop over the selected learning goal numbers.
     for (var j = 0; j < lgNums.length; j++) {
-      // Set the learning goal name if given.
-      masteryData.setLearningGoalName(lgNums[j], lgNames[j]);
+      var assignment = assignments[j];
+      var lgNum = lgNums[j];
+      var lgName = lgNames[j];
+      var retake = retakes[j];
 
-      // Set the mastery scores.
-      var scores = gradebook.getAssignmentScores(assignments[j]);
-      masteryData.setLearningGoalScores(period, lgNums[j], scores, retakes[j]);
+      // Set the learning goal name if given.
+      if (lgName !== undefined && lgName !== null && lgName !== '') {
+        masteryData.setLearningGoalName(lgNum, lgName);
+      }
+
+      // Set the mastery scores after clearing the old data.
+      var scores = gradebook.getAssignmentScores(assignment);
+      masteryData.clearLearningGoalScores(period, lgNum, retake);
+      masteryData.setLearningGoalScores(period, lgNum, scores, retake);
     }
   }
 
   // Construct display message and close button for return.
   var complete = 'Import complete. You may close this window and ' +
-      'complete the final step.' +
+      'complete step 3.' +
       '<div class="block">' +
         showCloseButton() +
       '</div>';
