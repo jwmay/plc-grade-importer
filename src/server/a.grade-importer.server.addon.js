@@ -30,7 +30,7 @@ function onOpen(e) {
   // Add the plugin add-on menu to the user interface.
   SpreadsheetApp.getUi()
       .createMenu('PLC Mastery Tracker')
-      .addItem('Grade import', 'onShowGradeImportSidebar')
+      .addItem('Start', 'onShowGradeImportSidebar')
       .addToUi();
   
   // Show the Grade Import sidebar when the spreadsheet opens.
