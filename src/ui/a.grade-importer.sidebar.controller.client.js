@@ -29,36 +29,3 @@ function runCleanup_onclick() {
   google.script.run
       .runCleanup();
 }
-
-
-// Not being used right now---steps in sidebar are never obscured.
-function advanceStep() {
-  var $loadGradebooks = $('#loadGradebooks');
-  var $importScores = $('#importScores');
-  var $removeSheets = $('#removeSheets');
-
-  if (!$loadGradebooks.hasClass('complete') && 
-          $importScores.hasClass('hidden')) {
-    $loadGradebooks.addClass('complete');
-    $importScores.removeClass('hidden');
-
-  } else if (!$importScores.hasClass('hidden')) {
-    $importScores.addClass('complete');
-    $removeSheets.removeClass('hidden');
-
-  } else if ($importScores.hasClass('complete')) {
-    resetSidebar();
-  }
-}
-
-
-// Not being used right now---steps in sidebar are never obscured.
-function resetSidebar() {
-  var $loadGradebooks = $('#loadGradebooks');
-  var $importScores = $('#importScores');
-  var $removeSheets = $('#removeSheets');
-
-  $loadGradebooks.removeClass('complete');
-  $importScores.removeClass('complete').addClass('hidden');
-  $removeSheets.addClass('hidden');
-}

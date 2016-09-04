@@ -8,7 +8,12 @@
     </style>
   </head>
   <body>
-    <div class="sidebar branding-below">
+    <div class="sidebar">
+      <div id="logo">
+        <img alt="Add-on logo" class="logo" 
+            src="https://cdn.rawgit.com/jwmay/plc-grade-importer/master/img/mojave-plc-mastery-tracker-logo--270x52.png">
+      </div>
+      
       <div id="loadGradebooks">
         <h1><span class="step">1</span> Load gradebooks</h1>
         <p>
@@ -43,13 +48,9 @@
           <button class="action" onclick="runCleanup_onclick();">Delete sheets</button>
         </div>
       </div>
+    
     </div>
-
-    <div class="sidebar bottom">
-      <img alt="Add-on logo" class="logo" 
-          src="https://cdn.rawgit.com/jwmay/plc-grade-importer/master/img/mojave-plc-mastery-tracker-logo--270x52.png">
-    </div>
-
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
       <?!= include('a.grade-importer.sidebar.controller.client.js'); ?>
