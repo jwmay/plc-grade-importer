@@ -21,8 +21,8 @@
  */
 var MasteryData = function() {
   // Get the sheet name from the configuration object.
-  var config = Configuration.getCurrent();
-  this.sheetName = config.sheets.masteryDataSheet.name;
+  this.config = Configuration.getCurrent();
+  this.sheetName = this.config.sheets.masteryDataSheet.name;
 
   // Get the sheet id.
   var masteryTracker = new MasteryTracker(); 
@@ -87,11 +87,9 @@ MasteryData.prototype.getLearningGoalSelector = function() {
  * @param {string} name The learning goal name.
  */
 MasteryData.prototype.setLearningGoalName = function(lgNum, name) {
-  if (name !== undefined && name !== null && name !== '') {
-    var colNum = (2 + 12 * (lgNum - 1));
-    var nameCell = this.sheet.getRange(3, colNum);
-    nameCell.setValue(name);
-  }
+  var colNum = (2 + 12 * (lgNum - 1));
+  var nameCell = this.sheet.getRange(3, colNum);
+  nameCell.setValue(name);
 };
 
 
@@ -107,9 +105,41 @@ MasteryData.prototype.setLearningGoalName = function(lgNum, name) {
  */
 MasteryData.prototype.setLearningGoalScores =
         function(period, lgNum, scores, retake) {
-  var colNum = (2 + 12 * (lgNum - 1) + 2 * (period - 1));
-  colNum += retake === true ? 1 : 0;
+  var colNum = this.getScoresColumn(period, lgNum, retake);
   var numRows = scores.length;
   var range = this.getColumn(colNum, 9, numRows);
   range.setValues(scores);
+};
+
+
+/**
+ * Clears the given learning goal scores for the specified period. The retake
+ * flag clears the retake column rather than the original column.
+ * 
+ * @param {number} period The class period.
+ * @param {number} lgNum The learning goal number.
+ * @param {boolean} retake True if the data is for a retake. 
+ */
+MasteryData.prototype.clearLearningGoalScores = 
+        function(period, lgNum, retake) {
+  var colNum = this.getScoresColumn(period, lgNum, retake);
+  var numRows = this.config.properties.maxNumScores;
+  var range = this.getColumn(colNum, 9, numRows);
+  range.clear();
+};
+
+
+/**
+ * Returns the column number for the given learning goal number for the
+ * specified period. The retake flag returns the retake column number rather
+ * than the original column number.
+ * 
+ * @param {number} period The class period.
+ * @param {number} lgNum The learning goal number.
+ * @param {boolean} retake True if the data is for a retake.  
+ */
+MasteryData.prototype.getScoresColumn = function(period, lgNum, retake) {
+  var colNum = (2 + 12 * (lgNum - 1) + 2 * (period - 1));
+  colNum += retake === true ? 1 : 0;
+  return colNum;
 };
