@@ -125,7 +125,7 @@ MasteryData.prototype.clearLearningGoalScores =
   var colNum = this.getScoresColumn(period, lgNum, retake);
   var numRows = this.config.properties.maxNumScores;
   var range = this.getColumn(colNum, 9, numRows);
-  range.clear();
+  range.clearContent();
 };
 
 
