@@ -22,10 +22,10 @@ button {
 
 code {
   padding: 2px 4px;
-  font-size: 90%;
-  color: #c7254e;
-  background-color: #f9f2f4;
-  border-radius: 4px;
+  font-size: 80%;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color: #357ae8;
 }
 
 .step {
