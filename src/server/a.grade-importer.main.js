@@ -46,6 +46,12 @@ function getDefaultConfiguration_() {
         name: 'Constants',
         rows: 142,
         cols: 8
+      },
+
+      helpSheet: {
+        name: 'Help',
+        rows: 51,
+        cols: 7
       }
     },
 
