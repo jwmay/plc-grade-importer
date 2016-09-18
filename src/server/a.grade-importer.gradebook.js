@@ -32,8 +32,9 @@ inherit_(Gradebook, BaseSheet);
  */
 Gradebook.prototype.getAssignmentNames = function() {
   var assignments = this.getRow(1, 2);
-  var assignmentNames = assignments.getValues();
-  return assignmentNames[0];
+  var assignmentRow = assignments.getValues();
+  var assignmentNames = assignmentRow[0].filter(function(n) {return n != ""}); 
+  return assignmentNames;
 };
 
 
