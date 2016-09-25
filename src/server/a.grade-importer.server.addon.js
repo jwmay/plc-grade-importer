@@ -29,7 +29,7 @@ function onInstall(e) {
 function onOpen(e) {
   // Add the plugin add-on menu to the user interface.
   SpreadsheetApp.getUi()
-      .createMenu('PLC Mastery Tracker')
+      .createMenu('Infinite Campus Grade Importer')
       .addItem('Start', 'onShowGradeImportSidebar')
       .addToUi();
   
