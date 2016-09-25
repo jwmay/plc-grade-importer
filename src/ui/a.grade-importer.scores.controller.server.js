@@ -184,8 +184,7 @@ function importMasteryData(assignments, lgNums, lgNames, retakes) {
     var sheetId = sheetIds[i];
     var gradebook = new Gradebook(sheetId);
 
-    // Get the class period
-    // TODO: *** perhaps some error handling here if null ***
+    // Get the class period.
     var period = gradebook.getClassPeriod();
 
     // Verify that the imported data arrays are equal in length.
@@ -209,6 +208,7 @@ function importMasteryData(assignments, lgNums, lgNames, retakes) {
       }
 
       // Set the mastery scores after clearing the old data.
+      // TODO: *** append data for cc classes ***
       var scores = gradebook.getAssignmentScores(assignment);
       masteryData.clearLearningGoalScores(period, lgNum, retake);
       masteryData.setLearningGoalScores(period, lgNum, scores, retake);
@@ -223,52 +223,4 @@ function importMasteryData(assignments, lgNums, lgNames, retakes) {
       '</div>';
 
   return complete;
-}
-
-
-/**
- * Returns the data structure for showCheckboxes() given an array of Sheet
- * objects. The returned data is an array of objects each with a value and
- * label property.
- * 
- * @private
- * @param {array} sheets An array of Sheet objects.
- * @returns An array of objects.
- */
-function constructSheetSelectItems_(sheets) {
-  var items = [];
-  for (var i = 0; i < sheets.length; i++) {
-    var sheet = sheets[i];
-    var item = {
-        value: sheet.getSheetId(),
-        label: sheet.getSheetName()
-    };
-    items.push(item);
-  }
-  return items;
-}
-
-
-/**
- * Returns the data structure for showCheckboxes() given an array of strings.
- * The returned data is an array of objects each with a value and label
- * property.
- * 
- * @private
- * @param {array} columns An array of strings.
- * @returns An array of objects.
- */
-function constructColumnSelectItems_(columns, startIndex) {
-  var items = [];
-  var firstIndex = startIndex === undefined ? 1 : startIndex;
-  for (var i = 0; i < columns.length; i++) {
-    var col = columns[i];
-    var colNum = i + firstIndex;
-    var item = {
-      value: colNum,
-      label: col
-    };
-    items.push(item);
-  }
-  return items;
 }

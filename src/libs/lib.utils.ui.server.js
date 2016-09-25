@@ -113,3 +113,51 @@ function showCloseButton() {
   button = '<input type="button" value="Close" class="btn" onclick="google.script.host.close();">';
   return button;
 }
+
+
+/**
+ * Returns the data structure for showCheckboxes() given an array of Sheet
+ * objects. The returned data is an array of objects each with a value and
+ * label property.
+ * 
+ * @private
+ * @param {array} sheets An array of Sheet objects.
+ * @returns An array of objects.
+ */
+function constructSheetSelectItems_(sheets) {
+  var items = [];
+  for (var i = 0; i < sheets.length; i++) {
+    var sheet = sheets[i];
+    var item = {
+        value: sheet.getSheetId(),
+        label: sheet.getSheetName()
+    };
+    items.push(item);
+  }
+  return items;
+}
+
+
+/**
+ * Returns the data structure for showCheckboxes() given an array of strings.
+ * The returned data is an array of objects each with a value and label
+ * property.
+ * 
+ * @private
+ * @param {array} columns An array of strings.
+ * @returns An array of objects.
+ */
+function constructColumnSelectItems_(columns, startIndex) {
+  var items = [];
+  var firstIndex = startIndex === undefined ? 1 : startIndex;
+  for (var i = 0; i < columns.length; i++) {
+    var col = columns[i];
+    var colNum = i + firstIndex;
+    var item = {
+      value: colNum,
+      label: col
+    };
+    items.push(item);
+  }
+  return items;
+}
