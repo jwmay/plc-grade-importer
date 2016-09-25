@@ -88,11 +88,20 @@ function displayPickerResults(files) {
           'already exists in this spreadsheet:',
       displayRenamedFile_));
 
-  // Display invalid files.
+  // Display invalid filename files.
   display.push(displayFiles_(
-      files.invalid,
-      'The following files are not valid csv files and were not imported:',
+      files.invalidName,
+      'The following files do not have a valid file name and ' +
+          'were not imported. <span class="help"><strong><em>' +
+          'Files should be named pX.csv or pXcc.csv, where "X" ' +
+          'is the period number:</em></strong></span>',
       displayFileWithLink_));
+
+  // Display invalid filetype files.
+  display.push(displayFiles_(
+    files.invalidType,
+    'The following files are not valid csv files and were not imported:',
+    displayFileWithLink_));
   
   // Display close button.
   display.push('<p>Close this window to continue.</p>');
