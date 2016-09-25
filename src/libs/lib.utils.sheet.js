@@ -20,6 +20,7 @@
  * @param {string} sheetId The sheet id.
  */
 var BaseSheet = function(sheetId) {
+  this.config = Configuration.getCurrent();
   this.sheetId = sheetId;
   this.spreadsheet = new BaseSpreadsheet();
   this.sheet = this.spreadsheet.getSheetById(parseInt(sheetId));

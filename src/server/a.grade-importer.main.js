@@ -23,6 +23,8 @@ function getDefaultConfiguration_() {
 
     debugSpreadsheetId: null,
     
+    validFilename: /[period]*(\d)+[\.csv]*/,
+
     sheets: {
       classScheduleSheet: {
         name: 'Class Schedule',
