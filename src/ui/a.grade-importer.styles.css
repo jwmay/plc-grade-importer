@@ -28,6 +28,12 @@ code {
   color: #357ae8;
 }
 
+#help {
+  background-color: #eee;
+  padding: 10px;
+  text-align: center;
+}
+
 .step {
   display: inline-block;
   border: 4px solid #FF4E00;
