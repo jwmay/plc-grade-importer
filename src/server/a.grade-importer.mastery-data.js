@@ -113,6 +113,31 @@ MasteryData.prototype.setLearningGoalScores =
 
 
 /**
+ * Appends the provided scores for the given learning goal and period. The
+ * retake flag sets the data in the retake column rather than the original
+ * column.
+ * 
+ * @param {number} period The class period.
+ * @param {number} lgNum The learning goal number.
+ * @param {array} scores The array of scores.
+ * @param {boolean} retake True if the data is for a retake. 
+ */
+MasteryData.prototype.appendLearningGoalScores =
+        function(period, lgNum, scores, retake) {
+  // Get the assignment column number.
+  var colNum = this.getScoresColumn(period, lgNum, retake);
+
+  // Get the last row containing data.
+  var startRow = this.getLastRow(colNum) + 1;
+
+  // Append the scores.
+  var numRows = scores.length;
+  var range = this.getColumn(colNum, startRow, numRows);
+  range.setValues(scores);
+};
+
+
+/**
  * Clears the given learning goal scores for the specified period. The retake
  * flag clears the retake column rather than the original column.
  * 
@@ -136,7 +161,8 @@ MasteryData.prototype.clearLearningGoalScores =
  * 
  * @param {number} period The class period.
  * @param {number} lgNum The learning goal number.
- * @param {boolean} retake True if the data is for a retake.  
+ * @param {boolean} retake True if the data is for a retake.
+ * @return {number} The column number.
  */
 MasteryData.prototype.getScoresColumn = function(period, lgNum, retake) {
   var colNum = (2 + 12 * (lgNum - 1) + 2 * (period - 1));
