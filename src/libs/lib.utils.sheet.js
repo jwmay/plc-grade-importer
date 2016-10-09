@@ -104,6 +104,35 @@ BaseSheet.prototype.getColumns = function(colNum, numCols, startRow, numRows) {
 
 
 /**
+ * Returns the position of the last row that has content for the given column.
+ * 
+ * @param {number} colNum The column number.
+ * @param {number=} startRow An optional starting row position.
+ * @param {number=} numRows An optional number of rows.
+ * @return {number} The last row of the column that contains content.
+ */
+BaseSheet.prototype.getLastRow = function(colNum, startRow, numRows) {
+  // Define range parameters.
+  var rowStart = startRow === undefined ? 1 : startRow;
+  var maxRows = this.sheet.getMaxRows();
+  numRows = numRows || (maxRows - rowStart + 1);
+  var colValues = this.getColumn(colNum, rowStart, numRows).getValues();
+  var colValuesLength = colValues.length;
+  
+  // Search from the end of the column to the top for the first row with
+  // content. Empty elements are removed from the colValues array.
+  for (var i = 0; i < colValuesLength; i++) {
+    if (colValues[colValuesLength - i - 1][0] === '') {
+      colValues.pop();
+    } else {
+      break;
+    }
+  }
+  return colValues.length;
+};
+
+
+/**
  * Deletes the current sheet.
  */
 BaseSheet.prototype.remove = function() {
