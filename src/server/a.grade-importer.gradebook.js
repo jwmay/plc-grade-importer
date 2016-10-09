@@ -33,7 +33,7 @@ inherit_(Gradebook, BaseSheet);
 Gradebook.prototype.getAssignmentNames = function() {
   var assignments = this.getRow(1, 2);
   var assignmentRow = assignments.getValues();
-  var assignmentNames = assignmentRow[0].filter(function(n) {return n !== "";}); 
+  var assignmentNames = assignmentRow[0].filter(function(n) {return n !== '';});
   return assignmentNames;
 };
 
@@ -67,16 +67,40 @@ Gradebook.prototype.getAssignmentScores = function(assignmentNumber) {
 
 
 /**
- * Attempts to find the class period in the sheet name. If the class period
+ * Returns the class period number found in the sheet name. If the class period
  * cannot be found, null is returned.
  * 
- * @return A string or null if the class period is not found.
+ * @return {string} The class period or null if the class period is not found.
  */
 Gradebook.prototype.getClassPeriod = function() {
+  var periodMatch = this.matchSheetName_();
+  var period = periodMatch !== null ? periodMatch[1] : null;
+  return period;
+};
+
+
+/**
+ * Returns true if the gradebook is for a CC class, otherwise, returns false.
+ * 
+ * @return {boolean} The CC status of the gradebook.
+ */
+Gradebook.prototype.isCC = function() {
+  var periodMatch = this.matchSheetName_();
+  var cc = periodMatch[2] !== undefined ? true : false;
+  return cc;
+};
+
+
+/**
+ * Returns the results of a regular expression match on the sheet name of the
+ * current gradebook file.
+ * 
+ * @return {array} An array containing the results of a regex match.
+ */
+Gradebook.prototype.matchSheetName_ = function() {
   var sheetName = this.sheetName;
   var validFilename = this.config.validFilename;
   var periodRegex = new RegExp(validFilename);
   var periodMatch = periodRegex.exec(sheetName);
-  var period = periodMatch !== null ? periodMatch[1] : null;
-  return period;
+  return periodMatch;
 };
