@@ -123,9 +123,10 @@ BaseSpreadsheet.prototype.getSheetById = function(sheetId) {
 
 /**
  * Returns an array of Sheet objects with the sheets defined in the
- * configuration file removed from the array.
+ * configuration file removed from the array. Sheets are sorted by sheet name
+ * before being returned.
  * 
- * @return {array} An array of Sheet objects.
+ * @return {array} An array of Sheet objects sorted by sheet name.
  */
 BaseSpreadsheet.prototype.getUserCreatedSheets = function() {
   var allSheets = this.getSpreadsheet().getSheets();
@@ -133,6 +134,7 @@ BaseSpreadsheet.prototype.getUserCreatedSheets = function() {
   var userSheets = allSheets.filter(function(sheet) {
     return configSheetNames.indexOf(sheet.getName()) < 0;
   });
+  userSheets.sort(compareSheetNames_);
   return userSheets;
 };
 
@@ -155,3 +157,21 @@ BaseSpreadsheet.prototype.getUniqueSheetName = function(baseName) {
   }
   return sheetName;
 };
+
+
+/**
+ * Compares the sheet names of two Sheet objects and returns a numerical value
+ * based on the result of the comparison (-1 if a is less than b; 1 if a is
+ * greater than b; 0 if a and b are equal). 
+ * 
+ * @param {object} a First Sheet object for comparison.
+ * @param {object} b Second Sheet object for comparison.
+ * @returns {number} A number representing the result of the comparison.
+ */
+function compareSheetNames_(a, b) {
+  if (a.getName() < b.getName())
+    return -1;
+  if (a.getName() > b.getName())
+    return 1;
+  return 0;
+}
