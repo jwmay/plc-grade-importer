@@ -187,6 +187,9 @@ function importMasteryData(assignments, lgNums, lgNames, retakes) {
     // Get the class period.
     var period = gradebook.getClassPeriod();
 
+    // Get the CC flag.
+    var isCC = gradebook.isCC();
+
     // Verify that the imported data arrays are equal in length.
     if ((assignments.length !== lgNums.length) &&
             (lgNums.length !== lgNames.length) &&
@@ -208,10 +211,14 @@ function importMasteryData(assignments, lgNums, lgNames, retakes) {
       }
 
       // Set the mastery scores after clearing the old data.
-      // TODO: *** append data for cc classes ***
+      // Append data for CC classes.
       var scores = gradebook.getAssignmentScores(assignment);
-      masteryData.clearLearningGoalScores(period, lgNum, retake);
-      masteryData.setLearningGoalScores(period, lgNum, scores, retake);
+      if (isCC === false) {
+        masteryData.clearLearningGoalScores(period, lgNum, retake);
+        masteryData.setLearningGoalScores(period, lgNum, scores, retake);
+      } else {
+        masteryData.appendLearningGoalScores(period, lgNum, scores, retake);
+      }
     }
   }
 
