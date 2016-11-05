@@ -69,34 +69,40 @@ function displayAssignments(sheetIds) {
   // faulty assumption.
   // TODO: *** Add error catching for this ***
   var sheetId = sheetIds[0];
-
-  // Save the current and remaining sheetIds for later use.
-  var storage = new PropertyStore();
-  storage.setProperty('sheetIds', sheetIds, true);
-  
-  var gradebook = new Gradebook(sheetId);  
-  var assignments = gradebook.getAssignmentNames();
-  var assignmentItems = constructColumnSelectItems_(assignments, 2);
-  
-  // Construct the html form.
   var form = [];
-  form.push('<form class="block" id="assignments">' +
-    '<div class="form-group">' +
-      '<p>Select learning goal mastery data to import by checking the ' +
-      'appropriate gradebook assignments below.</p>');
-  
-  // Construct the checkboxes for each assignment.
-  form.push('<div class="form-options">' +
-      showCheckboxes('assignments', assignmentItems) +
-    '</div></div>');
 
-  // Construct the form control buttons.
-  form.push('<div class="btn-bar">' +
-      '<input type="button" value="Select assignments" class="action" ' +
-          'onclick="selectAssignments_onclick();">' +
-      showCloseButton() +
-    '</div></form>');
+  if (sheetIds.length > 0) {
+    // Save the current and remaining sheetIds for later use.
+    var storage = new PropertyStore();
+    storage.setProperty('sheetIds', sheetIds, true);
+    
+    var gradebook = new Gradebook(sheetId);  
+    var assignments = gradebook.getAssignmentNames();
+    var assignmentItems = constructColumnSelectItems_(assignments, 2);
+    
+    // Construct the html form.
+    form.push('<form class="block" id="assignments">' +
+      '<div class="form-group">' +
+        '<p>Select learning goal mastery data to import by checking the ' +
+        'appropriate gradebook assignments below.</p>');
+    
+    // Construct the checkboxes for each assignment.
+    form.push('<div class="form-options">' +
+        showCheckboxes('assignments', assignmentItems) +
+      '</div></div>');
 
+    // Construct the form control buttons.
+    form.push('<div class="btn-bar">' +
+        '<input type="button" value="Select assignments" class="action" ' +
+            'onclick="selectAssignments_onclick();">' +
+        showCloseButton() +
+      '</div></form>');
+  } else {
+    form.push('<div class="information">' +
+        'No gradebooks were selected. You may close this window.' +
+      '</div>' +
+      showCloseButton());
+  }
 
   return form.join('');
 }
@@ -233,11 +239,11 @@ function importMasteryData(assignments, lgNums, lgNames, retakes) {
   }
 
   // Construct display message and close button for return.
-  var complete = 'Import complete. You may close this window and ' +
-      'complete step 3.' +
-      '<div class="block">' +
-        showCloseButton() +
-      '</div>';
+  var complete = '<div class="information">' + 
+        'Import complete. You may close this window and ' +
+        'complete step 3.' +
+      '</div>' +
+      showCloseButton();
 
   return complete;
 }
