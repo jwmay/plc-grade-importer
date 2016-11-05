@@ -31,13 +31,18 @@ function createPicker(token) {
   if (pickerApiLoaded && token) {
     var picker = new google.picker.PickerBuilder()
         
-        // Allow user to upload documents to a selected Google Drive folder.
+        // Allow user to upload documents to My Drive folder.
         .addView(new google.picker.DocsUploadView()
             .setIncludeFolders(true))
         
         // Instruct Picker to display *.csv files only.
         .addView(new google.picker.View(google.picker.ViewId.DOCS)
             .setQuery('*.csv'))
+
+        // Allow user to select files from Google Drive.
+        .addView(new google.picker.DocsView()
+            .setIncludeFolders(true)
+            .setOwnedByMe(true))
         
         // Allow user to choose more than one document in the picker.
         .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
