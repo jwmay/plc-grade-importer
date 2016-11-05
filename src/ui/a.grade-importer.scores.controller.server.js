@@ -24,25 +24,35 @@ function displayGradebooks() {
   var gradebookSheets = masteryTracker.getUserCreatedSheets();
   var gradebookItems = constructSheetSelectItems_(gradebookSheets);
 
-  // Construct the html form.
+  // Construct the html form if there are imported gradebook sheets.
   var form = [];
-  form.push('<form class="block" id="gradebooks">' +
-      '<div class="form-group">' +
-        '<p>Scores will be imported from the following gradebooks. ' +
-            'Uncheck a gradebook to skip it. <strong><em>Selected gradebooks ' +
-            'must have identical assignments.</em></strong></p>');
+  if (gradebookSheets.length > 0) {
+    form.push('<form class="block" id="gradebooks">' +
+        '<div class="form-group">' +
+          '<p>Scores will be imported from the following gradebooks. ' +
+              'Uncheck a gradebook to skip it. <strong><em>Selected gradebooks ' +
+              'must have identical assignments.</em></strong></p>');
 
-  // Construct the checkboxes for each assignment.
-  form.push('<div class="form-options">' +
-      showCheckboxes('gradebooks', gradebookItems, true) +
-    '</div></div>');
+    // Construct the checkboxes for each assignment.
+    form.push('<div class="form-options">' +
+        showCheckboxes('gradebooks', gradebookItems, true) +
+      '</div></div>');
 
-  // Construct the form control buttons.
-  form.push('<div class="btn-bar">' +
-      '<input type="button" value="Select gradebooks" class="action" ' +
-          'onclick="selectGradebooks_onclick();">' +
-      showCloseButton() +
-    '</div></form>');
+    // Construct the form control buttons.
+    form.push('<div class="btn-bar">' +
+        '<input type="button" value="Select gradebooks" class="action" ' +
+            'onclick="selectGradebooks_onclick();">' +
+        showCloseButton() +
+      '</div></form>');
+  } else {
+    form.push('<div class="warning">' +
+        '<p>' +
+          'No gradebooks have been loaded into the tracker. ' +
+          'You must <strong><em>complete step 1</em></strong> first.' +
+        '</p>' +
+      '</div>' +
+      showCloseButton());
+  }
 
   return form.join('');
 }

@@ -38,6 +38,13 @@ code {
   color: red;
 }
 
+.warning {
+  background-color: #F9E79F;
+  border: 1px solid #F4D03F;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 .step {
   display: inline-block;
   border: 4px solid #FF4E00;
