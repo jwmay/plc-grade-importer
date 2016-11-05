@@ -79,6 +79,7 @@ function displayPickerResults(files) {
   display.push(displayFiles_(
       files.valid,
       'The following files were successfully imported:',
+      'msg msg-success',
       displayFileWithLink_));
 
   // Display renamed files.
@@ -86,6 +87,7 @@ function displayPickerResults(files) {
       files.renamed,
       'The following files were renamed because a sheet with that name ' +
           'already exists in this spreadsheet:',
+      'msg msg-warning',
       displayRenamedFile_));
 
   // Display invalid filename files.
@@ -95,20 +97,21 @@ function displayPickerResults(files) {
           'were not imported. <span class="help"><strong><em>' +
           'Files should be named pX.csv or pXcc.csv, where "X" ' +
           'is the period number:</em></strong></span>',
+      'msg msg-error',
       displayFileWithLink_));
 
   // Display invalid filetype files.
   display.push(displayFiles_(
     files.invalidType,
     'The following files are not valid csv files and were not imported:',
+    'msg msg-error',
     displayFileWithLink_));
   
   // Display close button.
-  display.push('<p>Close this window to continue.</p>');
-  display.push('<div class="block">' +
-    '<input type="button" value="Close" class="btn" ' +
-      'onclick="google.script.host.close()">' +
-    '</div>');
+  display.push('<div class="msg msg-information">' +
+        'Close this window and continue with Step 2.' +
+      '</div>' +
+      showCloseButton());
   
   return display.join('');
 }
@@ -120,20 +123,22 @@ function displayPickerResults(files) {
  * @private
  * @param {array} files An array of JSON objects returned by Google Picker
  *     representing the selected files.
- * @param {string} message
+ * @param {string} message A message to be displayed with the files.
+ * @param {string} cssClass A formatting class for the displayed files.
  * @param {function} formatter A function that returns an HTML-formatted
  *     string of an individual file.
  * @returns An HTML-formatted string containing the file display.
  */
-function displayFiles_(files, message, formatter) {
+function displayFiles_(files, message, cssClass, formatter) {
   var output = [];
   if (files.length > 0) {
+    output.push('<div class="' + cssClass + '">');
     output.push(message);
     output.push('<ol>');
     for (var i = 0; i < files.length; i++) {
       output.push(formatter(files[i]));
     }
-    output.push('</ol>');
+    output.push('</ol></div>');
   }
   return output.join('');
 }

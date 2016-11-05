@@ -45,7 +45,7 @@ function displayGradebooksForRemoval() {
         showCloseButton() +
       '</div></form>');
   } else {
-    form.push('<div class="information">' +
+    form.push('<div class="msg msg-information">' +
         '<p>' +
           'There are no sheets to remove. ' +
         '</p>' +
@@ -72,7 +72,7 @@ function removeGradebooks(sheetIds) {
   }
 
   // Construct display message and close button for return.
-  var complete = '<div class="information">' + 
+  var complete = '<div class="msg msg-information">' + 
         'Sheet removal complete. You may close this window.' +
       '</div>' +
       showCloseButton();

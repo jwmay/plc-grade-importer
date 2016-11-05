@@ -35,20 +35,31 @@ code {
 }
 
 .help {
-  color: red;
+  color: #a94442;
 }
 
-.warning {
-  background-color: #F9E79F;
-  border: 1px solid #F4D03F;
+.msg {
   padding: 10px;
   margin-bottom: 10px;
 }
 
-.information {
+.msg-success {
+  background-color: #dff0d8;
+  border: 1px solid #d6e9c6;
+}
+
+.msg-warning {
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+}
+
+.msg-error {
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+}
+
+.msg-information {
   background-color: #eee;
-  padding: 10px;
-  margin-bottom: 10px;
 }
 
 .step {

@@ -45,7 +45,7 @@ function displayGradebooks() {
         showCloseButton() +
       '</div></form>');
   } else {
-    form.push('<div class="warning">' +
+    form.push('<div class="msg msg-warning">' +
         '<p>' +
           'No gradebooks have been loaded into the tracker. ' +
           'You must <strong><em>complete step 1</em></strong> first.' +
@@ -98,7 +98,7 @@ function displayAssignments(sheetIds) {
         showCloseButton() +
       '</div></form>');
   } else {
-    form.push('<div class="information">' +
+    form.push('<div class="msg msg-information">' +
         'No gradebooks were selected. You may close this window.' +
       '</div>' +
       showCloseButton());
@@ -239,7 +239,7 @@ function importMasteryData(assignments, lgNums, lgNames, retakes) {
   }
 
   // Construct display message and close button for return.
-  var complete = '<div class="information">' + 
+  var complete = '<div class="msg msg-information">' + 
         'Import complete. You may close this window and ' +
         'complete step 3.' +
       '</div>' +
