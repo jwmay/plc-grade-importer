@@ -82,8 +82,11 @@ BaseSpreadsheet.prototype.getSheetId = function(name) {
  * @return {boolean} True if the sheet name is found, otherwise, false.
  */
 BaseSpreadsheet.prototype.hasSheet = function(name) {
-  var sheetNames = this.getSheetNames();
-  var index = sheetNames.indexOf(name);
+  // Google Sheets sheet names are not case sensistive. The comparisons here
+  // are done in lower case to ensure to duplicates exist in the spreadsheet.
+  var lowercaseName = name.toLowerCase();  
+  var sheetNames = arrayToLowerCase(this.getSheetNames());
+  var index = sheetNames.indexOf(lowercaseName);
   var found = index > -1 ? true : false;
   return found;
 };

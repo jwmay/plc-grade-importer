@@ -87,6 +87,22 @@ function arraysEqual(array1, array2, sort) {
 
 
 /**
+ * Returns an array of strings with each element converted to lower case.
+ * 
+ * @param {array} array The array of strings to convert.
+ * @returns An array of strings converted to lower case.
+ */
+function arrayToLowerCase(array) {
+  var lowerCaseArray = array.map(
+    function(x) {
+      return x.toLowerCase();
+    }
+  );
+  return lowerCaseArray;
+}
+
+
+/**
  * Configures a child class to inherit from a parent class.
  * 
  * @private
