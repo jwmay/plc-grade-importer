@@ -26,23 +26,32 @@ function displayGradebooksForRemoval() {
 
   // Construct the html form.
   var form = [];
-  form.push('<form class="block" id="gradebooks">' +
-      '<div class="form-group">' +
-        '<p>The following sheets will be permanently deleted from this ' +
-            'spreadsheet. Imported mastery data will not be lost. Uncheck a ' +
-            'gradebook to skip it.</p>');
+  if (gradebookSheets.length > 0) {
+    form.push('<form class="block" id="gradebooks">' +
+        '<div class="form-group">' +
+          '<p>The following sheets will be permanently deleted from this ' +
+              'spreadsheet. Imported mastery data will not be lost. Uncheck a ' +
+              'gradebook to skip it.</p>');
 
-  // Construct the checkboxes for each assignment.
-  form.push('<div class="form-options">' +
-      showCheckboxes('gradebooks', gradebookItems, true) +
-    '</div></div>');
+    // Construct the checkboxes for each assignment.
+    form.push('<div class="form-options">' +
+        showCheckboxes('gradebooks', gradebookItems, true) +
+      '</div></div>');
 
-  // Construct the form control buttons.
-  form.push('<div class="btn-bar">' +
-      '<input type="button" value="Delete gradebooks" class="create" ' +
-          'onclick="selectGradebooksForRemoval_onclick();">' +
-      showCloseButton() +
-    '</div></form>');
+    // Construct the form control buttons.
+    form.push('<div class="btn-bar">' +
+        '<input type="button" value="Delete gradebooks" class="create" ' +
+            'onclick="selectGradebooksForRemoval_onclick();">' +
+        showCloseButton() +
+      '</div></form>');
+  } else {
+    form.push('<div class="information">' +
+        '<p>' +
+          'There are no sheets to remove. ' +
+        '</p>' +
+      '</div>' +
+      showCloseButton());
+  }
 
   return form.join('');
 }
@@ -63,10 +72,10 @@ function removeGradebooks(sheetIds) {
   }
 
   // Construct display message and close button for return.
-  var complete = 'Sheet removal complete. You may close this window.' +
-      '<div class="block">' +
-        showCloseButton() +
-      '</div>';
+  var complete = '<div class="information">' + 
+        'Sheet removal complete. You may close this window.' +
+      '</div>' +
+      showCloseButton();
 
   return complete;
 }

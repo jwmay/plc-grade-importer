@@ -45,6 +45,12 @@ code {
   margin-bottom: 10px;
 }
 
+.information {
+  background-color: #eee;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 .step {
   display: inline-block;
   border: 4px solid #FF4E00;
