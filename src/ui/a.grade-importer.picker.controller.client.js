@@ -62,10 +62,10 @@ function createPicker(token) {
 
     picker.setVisible(true);
   } else {
-    showError(
-      '<p>Unable to load the file picker. Please try again.</p>' +
-      closeButton()
-    );
+    showError('<div class="msg msg-error">' +
+        'Unable to load the file picker. Please try again.' +
+      '</div>' +
+      closeButton());
   }
 }
 
@@ -84,8 +84,10 @@ function pickerCallback(data) {
         .withSuccessHandler(updateDisplay)
         .loadSelectedFiles(data.docs);
   } else if (data.action == google.picker.Action.CANCEL) {
-    var close = '<p>Load gradebooks canceled. You may close this window.</p>';
-    close += closeButton();
+    var close = '<div class="msg msg-information">' +
+        'Load gradebooks canceled. You may close this window.' +
+      '</div>' +
+      closeButton();
     updateDisplay(close);
   }
 }
