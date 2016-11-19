@@ -73,7 +73,7 @@ function showPrompt(message) {
  */
 function showAlert(title, message) {
   var ui = SpreadsheetApp.getUi();
-  var response = ui.alert(title, message, ui.buttons.OK);
+  var response = ui.alert(title, message, ui.ButtonSet.OK);
 }
 
 
