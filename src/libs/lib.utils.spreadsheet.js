@@ -46,6 +46,18 @@ BaseSpreadsheet.prototype.getSpreadsheet = function() {
 
 
 /**
+ * Returns the Spreadsheet name.
+ * 
+ * @return {string} The name of the current Spreadsheet.
+ */
+BaseSpreadsheet.prototype.getSpreadsheetName = function() {
+  var spreadsheet = this.getSpreadsheet();
+  var spreadsheetName = spreadsheet.getName();
+  return spreadsheetName;
+};
+
+
+/**
  * Returns an array containing the name of every sheet in the spreadsheet
  * as a string.
  * 
