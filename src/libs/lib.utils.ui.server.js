@@ -66,6 +66,18 @@ function showPrompt(message) {
 
 
 /**
+ * Display an alert with a single OK button.
+ * 
+ * @param {strong} title The title of the alert.
+ * @param {string} message The message to display.
+ */
+function showAlert(title, message) {
+  var ui = SpreadsheetApp.getUi();
+  var response = ui.alert(title, message, ui.buttons.OK);
+}
+
+
+/**
  * Insert any HTML file in the project into an outer HTML file.
  * Called from within the outer HTML file.
  * 
