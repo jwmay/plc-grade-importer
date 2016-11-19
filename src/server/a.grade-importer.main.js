@@ -25,6 +25,8 @@ function getDefaultConfiguration_() {
     
     validFilename: /[period]+([0-9])+(cc)?[\.csv]+/i,
 
+    spreadsheetName: 'PLC Mastery Data Tracker - Teacher Mastery Tracker',
+
     sheets: {
       classScheduleSheet: {
         name: 'Class Schedule',

@@ -28,11 +28,16 @@ inherit_(MasteryTracker, BaseSpreadsheet);
  * the correct sheets. The verification is done based on the sheet names present
  * in the spreadsheet.
  * 
- * @return {boolean} True if the spreadsheet is properly configured.
+ * @return {boolean} Return true if the spreadsheet is properly configured,
+ *     otherwise, false.
  */
 MasteryTracker.prototype.isConfigured = function() {
   var config = Configuration.getCurrent();
   var configSheets = config.sheets;
+  var spreadsheetName = this.getSpreadsheetName();
+  if (spreadsheetName.search(config.spreadsheetName) === -1) {
+    return false;
+  }
   for (var sheet in configSheets) {
     if (this.hasSheet(configSheets[sheet].name) === false) {
       return false;

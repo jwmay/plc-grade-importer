@@ -13,6 +13,56 @@
 // limitations under the License.
 
 
+function getSidebar() {
+  var masteryTracker = new MasteryTracker();
+  if (masteryTracker.isConfigured()) {
+    var controls = '<div id="loadGradebooks">' +
+          '<h1><span class="step">1</span> Load gradebooks</h1>' +
+          '<p>' +
+            'First load the gradebook files exported from Infinite' +
+            'Campus into this Google Sheet by clicking the' +
+            '<code>Load gradebooks</code> button below.' +
+          '</p>' +
+          '<div class="block">' +
+            '<button class="action" onclick="loadGradebooks_onclick();">Load gradebooks</button>' +
+          '</div>' +
+        '</div>' +
+        '<div id="importScores">' +
+          '<h1><span class="step">2</span> Import scores</h1>' +
+          '<p>' +
+            'Next select final mastery numbers to import by clicking the' +
+            '<code>Import scores</code> button below.' +
+          '</p>' +
+          '<div class="block">' +
+            '<button class="action" onclick="importScores_onclick();">Import scores</button>' +
+          '</div>' +
+        '</div>' +
+        '<div id="cleanUp">' +
+          '<h1><span class="step">3</span> Clean up</h1>' +
+          '<p>' +
+            'Lastly clean up by removing the unneeded Infinite Campus gradebook' +
+            'sheets that were imported by clicking the <code>Delete sheets</code>' +
+            'button below. <em>This will not erase any of the data you imported.</em>' +
+          '</p>' +
+          '<div class="block">' +
+            '<button class="action" onclick="runCleanup_onclick();">Delete sheets</button>' +
+          '</div>' +
+        '</div>';
+    return controls;
+  } else {
+    var message = '<div class="msg msg-warning" style="margin-top:20px;">' +
+          '<h3>Import Plugin Disabled</h3>' +
+          '<p>' +
+            'Scores cannot be imported into the PLC Mastery Tracker. ' +
+            'This plugin can only be used in your personal mastery ' +
+            'data tracker.' +
+          '</p>' +
+        '</div>';
+    return message;
+  }
+}
+
+
 /**
  * Displays an HTML Service dialog in Google Sheets that contains client-side
  * JavaScript code for the Google Picker API.

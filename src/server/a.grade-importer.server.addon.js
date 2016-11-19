@@ -42,6 +42,5 @@ function onOpen(e) {
  * Displays an HTML Service sidebar in Google Sheets.
  */
 function onShowGradeImportSidebar() {
-  showSidebar('a.grade-importer.sidebar.view',
-          'Infinite Campus Grade Importer');
+  showSidebar('a.grade-importer.sidebar.view','Infinite Campus Grade Importer');
 }
