@@ -13,7 +13,6 @@
 // limitations under the License.
 
 
-
 /**
  * Returns an object of valid and invalid file arrays. An array of file objects
  * returned from the Goolge Picker API is the required input.
@@ -63,7 +62,15 @@ function validateFiles(files, fileType) {
 }
 
 
-function validateFileTypes(files, fileType, storage) {
+/**
+ * Returns an object of arrays that contain files with valid filetypes and
+ * files with invalid filetypes.
+ * 
+ * @param {array} files An array of file objects returned from Google Picker.
+ * @param {string} fileType The MIME-type for valid files.
+ * @returns An object of valid and invalid file arrays.
+ */
+function validateFileTypes(files, fileType) {
   // Create storage object for valid and invalid files.
   var validatedFiles = {
     valid: [],
