@@ -95,7 +95,7 @@ BaseSpreadsheet.prototype.getSheetId = function(name) {
  */
 BaseSpreadsheet.prototype.hasSheet = function(name) {
   // Google Sheets sheet names are not case sensistive. The comparisons here
-  // are done in lower case to ensure to duplicates exist in the spreadsheet.
+  // are done in lower case to ensure no duplicates exist in the spreadsheet.
   var lowercaseName = name.toLowerCase();  
   var sheetNames = arrayToLowerCase(this.getSheetNames());
   var index = sheetNames.indexOf(lowercaseName);
@@ -116,8 +116,8 @@ BaseSpreadsheet.prototype.currentUserIsOwner = function() {
 
 
 /**
- * Sheets-specific utility. Find a sheet within the spreadsheet with
- * the given id. If not present, return null.
+ * Returns a Google Sheet object with the given sheet id. If a sheet with the
+ * given id is not found, return null.
  * 
  * @param {number} sheetId A Sheet id.
  * @return {object} A Sheet instance, or null if not found.
@@ -155,9 +155,9 @@ BaseSpreadsheet.prototype.getUserCreatedSheets = function() {
 
 
 /**
- * Sheets-specific utility. Given a base title for a sheet, check
- * that it is unique in the spreadsheet. If not, find an integer suffix
- * to append to it to make it unique and return. This function is used
+ * Returns a unique sheet name given a base title for a sheet. Check
+ * that the given name is unique in the spreadsheet. If not, find an integer
+ * suffix to append to it to make it unique and return. This function is used
  * to avoid name collisions while adding or renaming sheets automatically.
  * 
  * @param {string} baseName Initial suggested title for a sheet.

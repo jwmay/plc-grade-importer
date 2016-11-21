@@ -44,9 +44,8 @@ function showSidebar(source, title) {
 }
 
 
-
 /**
- * Display a prompt.
+ * Display a prompt and return the user's response.
  * 
  * @param {string} message The message to display.
  * @returns A string representing the user's response, or null if
