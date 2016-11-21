@@ -137,21 +137,20 @@ function displayMasteryData(assignments) {
   form.push('<ol class="comfy">');
   for (var i = 0; i < assignments.length; i++) {
     form.push(
-      '<li>' +
-        '<p>' +
-          '<strong>' + 
-            gradebook.getAssignmentName(assignments[i]) +
-          '</strong>' +
-        '</p>' +
+      '<li class="assignment">' +
+        '<h3>' + 
+          '<em>Assignment:</em> ' +
+          gradebook.getAssignmentName(assignments[i]) +
+        '</h3>' +
         '<div class="block form-group">' +
           '<label>Select learning goal:</label>' +
             masteryData.getLearningGoalSelector() +
         '</div>' +
         '<div class="form-group">' +
-          '<label for="lgName">Learning goal title:</label>' +
-          '<input type="text" name="lgName" id="lgName">' +
+          '<label>Learning goal title:</label>' +
+          '<input type="text" name="lgName">' +
         '</div>' +
-        '<div>' +
+        '<div class="form-group">' +
           '<label>' +
             '<input type="checkbox" name="retake"> Re-take ' +
             '<span class="secondary"><em>This will add re-take data to a ' +
@@ -171,6 +170,7 @@ function displayMasteryData(assignments) {
       '<input type="button" value="Import mastery data" class="action" ' +
           'onclick="importMasteryData_onclick();">' +
       showCloseButton() +
+      '<span id="errorDisplay"></span>' +
     '</div></form>');
 
   return form.join('');

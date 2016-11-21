@@ -68,7 +68,10 @@ MasteryData.prototype.getLearningGoalSelector = function() {
   var lgNames = lgs[1];
 
   var selector = [];
-  selector.push('<select name="learningGoals">');
+  selector.push('<select name="lgNums" class="lgNums" required>');
+  selector.push('<option value="" disabled selected>' +
+      'Select a Learning Goal...' +
+    '</option>');
   for (var i = 0; i < lgNums.length; i++) {
     var option = '<option value="' + lgNums[i] + '">' +
         'Learning Goal ' + lgNums[i] + ' - ' + lgNames[i] +

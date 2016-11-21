@@ -78,7 +78,26 @@ code {
 }
 
 .form-group {
-  margin-bottom: 14px; 
+  position: relative;
+  left: -10px;
+  padding: 10px;
+}
+
+.form-group.error {
+  color: black;
+  background-color: rgba(255, 0, 0, 0.35);
+}
+
+#errorDisplay {
+  color: #a94442;
+  font-style: italic;
+  font-size: 12px;
+  display: none;
+}
+
+.assignment h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .comfy {
@@ -90,8 +109,12 @@ code {
 
 .comfy li {
   padding: 22px;
-  border-bottom: 10px solid #fff;
+  border-bottom: 20px solid #fff;
   background-color: #eee;
+}
+
+.comfy li:last-of-type {
+  border-bottom: 10px solid #fff;
 }
 
 .comfy input[type="text"] {

@@ -52,9 +52,39 @@ function selectAssignments_onclick() {
  * Handler for the importMasteryData click response. 
  */
 function importMasteryData_onclick() {
+  var valid = importMasteryData_validateForm();
+  if (valid === true) {
+    importMasteryData_submitForm();
+  }
+}
+
+
+/**
+ * Validates the mastery data form. Primary function is to ensure each select
+ * has a valid option selected and highlights unselected elements.
+ * 
+ * @returns {boolean} True if the form is valid, otherwise, false.
+ */
+function importMasteryData_validateForm() {
+  $('.form-group.error').removeClass('error');
+  $('.lgNums option:selected:disabled').each(function() {
+    $(this).parent('select').parent('.form-group').addClass('error');
+  });
+  if ($('.form-group.error').length === 0) {
+    return true;
+  }
+  $('#errorDisplay').show().html('Select a Learning Goal for each assignment');
+  return false;
+}
+
+
+/**
+ * Gets the values from the mastery data import form and imports the data.
+ */
+function importMasteryData_submitForm() {
   // Get the form data.
   var assignments = getValues_('input[name="assignment"]');
-  var lgNums = getValues_('select[name="learningGoals"]');
+  var lgNums = getValues_('select[name="lgNums"]');
   var lgNames = getValues_('input[name="lgName"]');
   var retakes = getCheckboxStatus_('retake');
   showLoading('Importing scores. Do not close this window.');
@@ -62,3 +92,13 @@ function importMasteryData_onclick() {
     .withSuccessHandler(updateDisplay)
     .importMasteryData(assignments, lgNums, lgNames, retakes);
 }
+
+
+/**
+ * Remove error class from corrected select elements.
+ */
+$(document).click(function() {
+  $('.lgNums').change(function() {
+    $(this).parent('.form-group.error').removeClass('error');
+  });
+});
