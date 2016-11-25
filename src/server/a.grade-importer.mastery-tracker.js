@@ -35,9 +35,17 @@ MasteryTracker.prototype.isConfigured = function() {
   var config = Configuration.getCurrent();
   var configSheets = config.sheets;
   var spreadsheetName = this.getSpreadsheetName();
-  if (spreadsheetName.search(config.spreadsheetName) === -1) {
-    return false;
+
+  // Disable plugin for blacklisted spreadsheets.
+  var disabledFor = config.disabledFor;
+  for (var i = 0; i < disabledFor.length; i++) {
+    var disabled = disabledFor[i];
+    if (spreadsheetName.search(disabled) > -1) {
+      return false;
+    }
   }
+
+  // Disable plugin if any required sheets are missing.
   for (var sheet in configSheets) {
     if (this.hasSheet(configSheets[sheet].name) === false) {
       return false;

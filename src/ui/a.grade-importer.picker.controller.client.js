@@ -1,4 +1,4 @@
-var DEVELOPER_KEY = 'AIzaSyCgyLaEarqrUnu9jmF82pl2R4WD_ywry2Q';
+var DEVELOPER_KEY = 'AIzaSyBKkZawkgJfCR3u57-uAme0Ktd_ORlYnd0';
 var DIALOG_DIMENSIONS = {width: 600, height: 425};
 var pickerApiLoaded = false;
 
@@ -84,10 +84,6 @@ function pickerCallback(data) {
         .withSuccessHandler(updateDisplay)
         .loadSelectedFiles(data.docs);
   } else if (data.action == google.picker.Action.CANCEL) {
-    var close = '<div class="msg msg-information">' +
-        'Load gradebooks canceled. You may close this window.' +
-      '</div>' +
-      closeButton();
-    updateDisplay(close);
+    google.script.host.close();
   }
 }

@@ -27,6 +27,8 @@ function getDefaultConfiguration_() {
 
     spreadsheetName: 'PLC Mastery Data Tracker - Teacher Mastery Tracker',
 
+    disabledFor: ['PLC Mastery Data Tracker - PLC Mastery Tracker'],
+    
     sheets: {
       classScheduleSheet: {
         name: 'Class Schedule',
