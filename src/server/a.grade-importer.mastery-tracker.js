@@ -45,11 +45,14 @@ MasteryTracker.prototype.isConfigured = function() {
     }
   }
 
+  // This verification has been disabled so that the plugin can be used in
+  // other spreadsheets, for use of its sheet import and remove functions.
+  // **
   // Disable plugin if any required sheets are missing.
-  for (var sheet in configSheets) {
-    if (this.hasSheet(configSheets[sheet].name) === false) {
-      return false;
-    }
-  }
+  // for (var sheet in configSheets) {
+  //   if (this.hasSheet(configSheets[sheet].name) === false) {
+  //     return false;
+  //   }
+  // }
   return true;
 };
