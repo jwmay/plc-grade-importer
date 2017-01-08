@@ -30,8 +30,9 @@ function displayGradebooks() {
     form.push('<form class="block" id="gradebooks">' +
         '<div class="form-group">' +
           '<p>Scores will be imported from the following gradebooks. ' +
-              'Uncheck a gradebook to skip it. <strong><em>Selected gradebooks ' +
-              'must have identical assignments.</em></strong></p>');
+              'Uncheck a gradebook to skip it. ' +
+              '<span class="warning">Selected gradebooks must have ' +
+              'identical assignments.</span></p>');
 
     // Construct the checkboxes for each assignment.
     form.push('<div class="form-options">' +

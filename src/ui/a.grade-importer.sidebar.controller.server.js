@@ -68,7 +68,7 @@ function getSidebar() {
  * JavaScript code for the Google Picker API.
  */
 function showPicker() {
-  showDialog('a.grade-importer.picker.view', 600, 425,
+  showDialog('a.grade-importer.picker.view', 900, 550,
           'Upload or select grade book files');
 }
 
@@ -78,7 +78,7 @@ function showPicker() {
  * JavaScript code for the score importer.
  */
 function importScores() {
-  showDialog('a.grade-importer.scores.view', 600, 425,
+  showDialog('a.grade-importer.scores.view', 560, 350,
           'Select gradebooks to import scores from');
 }
 
@@ -88,6 +88,6 @@ function importScores() {
  * JavaScript code for deleting imported gradebook files.
  */
 function runCleanup() {
-  showDialog('a.grade-importer.cleanup.view', 600, 425,
+  showDialog('a.grade-importer.cleanup.view', 560, 300,
           'Select imported gradebook sheets to delete');
 }

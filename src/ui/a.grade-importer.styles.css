@@ -38,6 +38,12 @@ code {
   color: #a94442;
 }
 
+.warning {
+  color: #a94442;
+  font-style: italic;
+  font-weight: bold;
+}
+
 .msg {
   padding: 10px;
   margin-bottom: 10px;
