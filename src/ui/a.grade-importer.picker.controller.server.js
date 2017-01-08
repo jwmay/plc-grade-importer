@@ -41,11 +41,18 @@ function getOAuthToken() {
 function loadSelectedFiles(files) {
   var masteryTracker = new MasteryTracker();
 
+  // Storage for the imported file ids.
+  var storage = new PropertyStore();
+  var importedFileIds = [];
+
   // Filter the incoming files to select only csv files.
   var validatedFiles = validateFiles(files, 'text/csv');
 
   for (var i = 0; i < validatedFiles.valid.length; i++) {
     var file = validatedFiles.valid[i];
+
+    // Store the imported file id.
+    importedFileIds.push(file.id);
     
     // Incoming sheet cannot have same name as an existing sheet.
     // Append a number to the end of the new, duplicate sheet name
@@ -56,6 +63,9 @@ function loadSelectedFiles(files) {
     }
     var sheetId = importCsvFile(file);
   }
+
+  // Store the imported file ids.
+  storage.setProperty('importedFileIds', importedFileIds, true);
 
   // Generate the diplay of imported, renamed, and invalid files.
   importedFiles = displayPickerResults(validatedFiles);

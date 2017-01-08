@@ -29,8 +29,9 @@ $(function() {
  */
 function selectGradebooksForRemoval_onclick() {
   var gradebooks = getCheckedBoxes_('gradebooks');
+  var removeFiles = getCheckedBoxes_('removeFiles')[0] === 'remove' ? true : false;
   showLoading();
   google.script.run
     .withSuccessHandler(updateDisplay)
-    .removeGradebooks(gradebooks);
+    .removeGradebooks(gradebooks, removeFiles);
 }

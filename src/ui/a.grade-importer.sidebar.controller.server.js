@@ -78,7 +78,7 @@ function showPicker() {
  * JavaScript code for the score importer.
  */
 function importScores() {
-  showDialog('a.grade-importer.scores.view', 560, 350,
+  showDialog('a.grade-importer.scores.view', 590, 350,
           'Select gradebooks to import scores from');
 }
 
@@ -88,6 +88,6 @@ function importScores() {
  * JavaScript code for deleting imported gradebook files.
  */
 function runCleanup() {
-  showDialog('a.grade-importer.cleanup.view', 560, 300,
+  showDialog('a.grade-importer.cleanup.view', 560, 350,
           'Select imported gradebook sheets to delete');
 }

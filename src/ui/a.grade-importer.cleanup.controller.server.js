@@ -36,6 +36,16 @@ function displayGradebooksForRemoval() {
     // Construct the checkboxes for each assignment.
     form.push('<div class="form-options">' +
         showCheckboxes('gradebooks', gradebookItems, true) +
+      '</div>');
+
+    // Add option to remove files from Google Drive.
+    form.push('<div class="form-options">' +
+        '<div>' +
+          '<label>' +
+            '<input type="checkbox" name="removeFiles" value="remove" checked>' +
+            'Remove all imported gradebook files from Google Drive' +
+          '</label>' +
+        '</div>' +
       '</div></div>');
 
     // Construct the form control buttons.
@@ -59,16 +69,33 @@ function displayGradebooksForRemoval() {
 
 /**
  * Deletes all sheets with the given sheetIds and returns an HTML-formatted
- * string with a success message and close button.
+ * string with a success message and close button. If removeFiles is true, the
+ * corresponding imported gradebook files for each sheet will be removed from
+ * the user's Google Drive.
  * 
  * @param {array} sheetIds An array of numbers representing the sheet ids.
+ * @param {boolean} removeFiles If true, remove the imported gradebook files
+ *         from Google Drive, otherwise, do not remove the files.
  * @returns An HTML-formatted string.
  */
-function removeGradebooks(sheetIds) {
+function removeGradebooks(sheetIds, removeFiles) {
   for (var i = 0; i < sheetIds.length; i++) {
     var sheetId = sheetIds[i];
     var gradebook = new Gradebook(sheetId);
     gradebook.remove();
+  }
+
+  // Remove imported gradebook files from Google Drive.
+  if (removeFiles === true) {
+    var storage = new PropertyStore();
+    var importedFileIds = storage.getProperty('importedFileIds', true);
+    for (var j = 0; j < importedFileIds.length; j++) {
+      var fileId = importedFileIds[j];
+      var file = DriveApp.getFileById(fileId);
+      file.setTrashed(true);
+    }
+    // Clear the stored file ids.
+    storage.setProperty('importedFileIds', [], true);
   }
 
   // Construct display message and close button for return.
