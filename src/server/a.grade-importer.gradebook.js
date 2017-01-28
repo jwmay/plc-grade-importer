@@ -54,15 +54,17 @@ Gradebook.prototype.getAssignmentName = function(assignmentNumber) {
 
 /**
  * Returns a 2d-array of values representing the scores for the given
- * assignment number.
+ * assignment number. Scores are converted to SRG (1, 2, 3, 4) before they
+ * are returned.
  * 
  * @param {number} assignmentNumber The assignment number.
- * @return {array} A two-dimensional array.
+ * @return {array} A two-dimensional array containing the SRG scores.
  */
 Gradebook.prototype.getAssignmentScores = function(assignmentNumber) {
   var lastRow = this.sheet.getLastRow() - 2;
   var scores = this.getColumn(assignmentNumber, 3, lastRow).getValues();
-  return scores;
+  var srgScores = this.convertScores(scores);
+  return srgScores;
 };
 
 
@@ -88,6 +90,30 @@ Gradebook.prototype.isCC = function() {
   var periodMatch = this.matchSheetName_();
   var cc = periodMatch[2] !== undefined ? true : false;
   return cc;
+};
+
+
+/**
+ * Converts the given array of assignment scores into the
+ * SRG format (1, 2, 3, 4).
+ * 
+ * @param {array} scores A two-dimensional array of assignment scores.
+ * @return {array} A two-dimensional array of SRG assignment scores.
+ */
+Gradebook.prototype.convertScores = function(scores) {
+  // Return the scores if they are already in SRG form.
+  if (scores[0][0] <= 4) return scores;
+
+  // Convert the scores to SRG form.
+  var srgScale = Configuration.getSrgScale();
+  var srgScores = [];
+  for (var i = 0; i < scores.length; i++) {
+    var score = scores[i][0];
+    var srgScore = srgScale[score];
+    srgScores.push([srgScore]);
+  }
+  
+  return srgScores;
 };
 
 

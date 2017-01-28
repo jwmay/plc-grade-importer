@@ -49,5 +49,25 @@ var Configuration = {
       configSheetNames.push(configSheets[sheet].name);
     }
     return configSheetNames;
+  },
+
+  /**
+   * Returns the SRG conversion scale.
+   * 
+   * @return {object} The SRG conversion scale.
+   */
+  getSrgScale: function() {
+    var srgScale = {
+      "50": "0",
+      "56": "0.5",
+      "62": "1",
+      "68": "1.5",
+      "74": "2",
+      "80": "2.5",
+      "86": "3",
+      "93": "3.5",
+      "100": "4"
+    }
+    return srgScale;
   }
 };
