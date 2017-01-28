@@ -207,14 +207,6 @@ function importMasteryData(assignments, lgNums, lgNames, retakes) {
     // Get the CC flag.
     var isCC = gradebook.isCC();
 
-    // Verify that the imported data arrays are equal in length.
-    if ((assignments.length !== lgNums.length) &&
-            (lgNums.length !== lgNames.length) &&
-            (lgNames.length !== retakes.length)) {
-      throw new Error('There was a problem importing the data. ' +
-              'Please try again later.');
-    }
-
     // Loop over the selected learning goal numbers.
     for (var j = 0; j < lgNums.length; j++) {
       var assignment = assignments[j];
