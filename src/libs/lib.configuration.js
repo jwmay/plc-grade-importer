@@ -67,7 +67,7 @@ var Configuration = {
       "86": "3",
       "93": "3.5",
       "100": "4"
-    }
+    };
     return srgScale;
   }
 };
