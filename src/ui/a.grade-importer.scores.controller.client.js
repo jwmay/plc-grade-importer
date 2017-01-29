@@ -32,7 +32,7 @@ function selectGradebooks_onclick() {
   showLoading();
   google.script.run
     .withSuccessHandler(updateDisplay)
-    .displayAssignments(gradebooks);
+    .processGradebooks(gradebooks);
 }
 
 
@@ -82,7 +82,6 @@ function importMasteryData_validateForm() {
  * Gets the values from the mastery data import form and imports the data.
  */
 function importMasteryData_submitForm() {
-  // Get the form data.
   var assignments = getValues_('input[name="assignment"]');
   var lgNums = getValues_('select[name="lgNums"]');
   var lgNames = getValues_('input[name="lgName"]');

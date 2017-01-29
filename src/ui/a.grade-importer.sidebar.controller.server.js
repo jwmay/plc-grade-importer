@@ -79,7 +79,7 @@ function showPicker() {
  */
 function importScores() {
   showDialog('a.grade-importer.scores.view', 590, 350,
-          'Select gradebooks to import scores from');
+          'Import assignment scores');
 }
 
 

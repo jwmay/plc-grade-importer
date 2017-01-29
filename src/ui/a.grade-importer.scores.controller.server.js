@@ -60,23 +60,60 @@ function displayGradebooks() {
 
 
 /**
+ * 
+ */
+function processGradebooks(sheetIds) {
+  // Sort gradebooks into groups based on matching headers.
+  var gradebookGroups = [];
+  for (var i = 0; i < sheetIds.length; i++) {
+    var id_A = sheetIds[i];
+    var gradebook_A = new Gradebook(id_A);
+    var header_A = gradebook_A.getAssignmentNames();
+
+    if (gradebookGroups.length === 0) {
+      gradebookGroups.push([id_A]);
+    } else {
+      for (var j = 0; j < gradebookGroups.length; j++) {
+        var id_B = gradebookGroups[j][0];
+        var gradebook_B = new Gradebook(id_B);
+        var header_B = gradebook_B.getAssignmentNames();
+        
+        if (arraysEqual(header_A, header_B) === true) {
+          gradebookGroups[j].push(id_A);
+          break;
+        }
+        else if (j + 1 === gradebookGroups.length) {
+          gradebookGroups.push([id_A]);
+          break;
+        }
+      }
+    }
+  }
+
+  // Store the sorted gradebooks and display the assignments.
+  var storage = new PropertyStore();
+  storage.setProperty('gradebookGroups', gradebookGroups, true);
+
+  return displayAssignments();
+}
+
+
+/**
  * Returns an HTML-formatted string to display the assignment selector.
  * 
  * @returns An HTML-formatted string.
  */
-function displayAssignments(sheetIds) {
-  // Use the first selected assignment to get assignment names. This assumes
-  // that all assignment names will be found in the other sheets...perhaps a
-  // faulty assumption.
-  // TODO: *** Add error catching for this ***
-  var sheetId = sheetIds[0];
-  var form = [];
+function displayAssignments() {
+  var storage = new PropertyStore();
+  var gradebookGroups = storage.getProperty('gradebookGroups', true);
+  var sheetIds = gradebookGroups.shift();
+  storage.setProperty('sheetIds', sheetIds, true);
+  storage.setProperty('gradebookGroups', gradebookGroups, true);
 
-  if (sheetIds.length > 0) {
-    // Save the current and remaining sheetIds for later use.
-    var storage = new PropertyStore();
-    storage.setProperty('sheetIds', sheetIds, true);
-    
+  var form = [];
+  if (sheetIds !== undefined) {
+    var sheetNames = getSheetNames_(sheetIds);
+    var sheetId = sheetIds[0];    
     var gradebook = new Gradebook(sheetId);  
     var assignments = gradebook.getAssignmentNames();
     var assignmentItems = constructColumnSelectItems_(assignments, 2);
@@ -85,7 +122,16 @@ function displayAssignments(sheetIds) {
     form.push('<form class="block" id="assignments">' +
       '<div class="form-group">' +
         '<p>Select learning goal mastery data to import by checking the ' +
-        'appropriate gradebook assignments below.</p>');
+        'appropriate gradebook assignments below.</p>' +
+        '<p class="small"><strong>Data will be imported from the following ' +
+            'sheet(s): </strong>' +
+          sheetNames + ' ' +
+          '<a href="#" class="tooltip-right" data-tooltip="If you do not see ' +
+                'all of the gradebooks you selected, you will be prompted to ' +
+                'import data from your other gradebooks shortly">' +
+            '<i class="fa fa-info-circle" aria-hidden="true"></i>' +
+          '</a>' +
+        '</p>');
     
     // Construct the checkboxes for each assignment.
     form.push('<div class="form-options">' +
@@ -115,10 +161,6 @@ function displayAssignments(sheetIds) {
  * @returns An HTML-formatted string.
  */
 function displayMasteryData(assignments) {
-  // Use the first selected assignment to get assignment names. This assumes
-  // that all assignment names will be found in the other sheets...perhaps a
-  // faulty assumption.
-  // TODO: *** Add error catching for this ***
   var storage = new PropertyStore();
   var sheetIds = storage.getProperty('sheetIds', true);
   var sheetId = sheetIds[0];
@@ -231,12 +273,36 @@ function importMasteryData(assignments, lgNums, lgNames, retakes) {
     }
   }
 
-  // Construct display message and close button for return.
-  var complete = '<div class="msg msg-information">' + 
-        'Import complete. You may close this window and ' +
-        'complete step 3.' +
-      '</div>' +
-      showCloseButton();
+  // Check if the last gradebook group has been processed.
+  var gradebookGroups = storage.getProperty('gradebookGroups', true);
+  if (gradebookGroups.length === 0) {
+    // Construct display message and close button for return.
+    var complete = '<div class="msg msg-information">' + 
+          'Import complete. You may close this window and ' +
+          'complete step 3.' +
+        '</div>' +
+        showCloseButton();
+    return complete;
+  } else {
+    // Display assignments for next gradebook group.
+    return displayAssignments();
+  }
+}
 
-  return complete;
+
+/**
+ * Returns a string of the sheet names for the given array of sheet Ids.
+ * 
+ * @param {array} sheetIds An array of sheet ids.
+ * @return {string} A string of commas-separated sheet names.
+ */
+function getSheetNames_(sheetIds) {
+  var sheetNames = [];
+  for (var i = 0; i < sheetIds.length; i++) {
+    var sheetId = sheetIds[i];
+    var gradebook = new Gradebook(sheetId);
+    var sheetName = gradebook.sheetName;
+    sheetNames.push(sheetName);
+  }
+  return sheetNames.join(', ');
 }
