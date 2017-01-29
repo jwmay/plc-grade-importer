@@ -25,8 +25,7 @@ inherit_(Gradebook, BaseSheet);
 
 
 /**
- * Return an array of assignment names from an imported gradebook. This method
- * takes into account the first empty column in the gradebook files.
+ * Return an array of assignment names from an imported gradebook.
  * 
  * @return An array of strings containing the assignment names.
  */
