@@ -100,18 +100,17 @@ Gradebook.prototype.isCC = function() {
  * @return {array} A two-dimensional array of SRG assignment scores.
  */
 Gradebook.prototype.convertScores = function(scores) {
-  // Return the scores if they are already in SRG form.
-  if (scores[0][0] <= 4) return scores;
-
-  // Convert the scores to SRG form.
   var srgScale = Configuration.getSrgScale();
   var srgScores = [];
   for (var i = 0; i < scores.length; i++) {
     var score = scores[i][0];
-    var srgScore = srgScale[score];
-    srgScores.push([srgScore]);
+    if (srgScale.hasOwnProperty(score)) {
+      var srgScore = srgScale[score];
+      srgScores.push([srgScore]);
+    } else {
+      srgScores.push([score]);
+    }
   }
-  
   return srgScores;
 };
 
