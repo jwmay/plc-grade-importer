@@ -30,9 +30,7 @@ function displayGradebooks() {
     form.push('<form class="block" id="gradebooks">' +
         '<div class="form-group">' +
           '<p>Scores will be imported from the following gradebooks. ' +
-              'Uncheck a gradebook to skip it. ' +
-              '<span class="warning">Selected gradebooks must have ' +
-              'identical assignments.</span></p>');
+              'Uncheck a gradebook to skip it.</p>');
 
     // Construct the checkboxes for each assignment.
     form.push('<div class="form-options">' +
@@ -60,7 +58,14 @@ function displayGradebooks() {
 
 
 /**
+ * Sorts gradebook csv files into groups based on the header information
+ * contained in the first row. Headers that match are put into the same group.
+ * Sorted gradebook files are stored in document properties for later use. 
+ * Returns an HTML-formatted string of assignment names for the first group of
+ * gradebook files is returned.
  * 
+ * @param {array} sheetIds An array of sheet ids.
+ * @return {string} An HTML-formatted string of assignment names.
  */
 function processGradebooks(sheetIds) {
   // Sort gradebooks into groups based on matching headers.
@@ -89,11 +94,9 @@ function processGradebooks(sheetIds) {
       }
     }
   }
-
   // Store the sorted gradebooks and display the assignments.
   var storage = new PropertyStore();
   storage.setProperty('gradebookGroups', gradebookGroups, true);
-
   return displayAssignments();
 }
 
