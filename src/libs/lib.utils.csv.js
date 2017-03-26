@@ -34,8 +34,10 @@ function importCsvFile(file) {
 
   // Write the CSV file, row by row, to the new sheet.
   for (var row = 0; row < csvData.length; row++) {
-    var range = sheet.getRange(row+1, 1, 1, csvData[row].length);
-    range.setValues([csvData[row]]);
+    if (csvData[row].length > 0) {
+      var range = sheet.getRange(row+1, 1, 1, csvData[row].length);
+      range.setValues([csvData[row]]);
+    }
   }
 
   return sheet.getSheetId();
